@@ -1,0 +1,431 @@
+\documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+\usepackage{fixltx2e} % provides \textsubscript
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={ASTR 2600 Computational Techniques},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\title{ASTR 2600 Computational Techniques}
+\author{}
+\date{}
+
+\begin{document}
+%\maketitle
+
+\begin{center} \textbf{\large ASTR 2600~ Computational Techniques}
+
+{ Fall 2012~ Syllabus}
+\end{center}
+
+
+Instructor: Adam Ginsburg (\url{adam.ginsburg@colorado.edu}) \\
+Class e-mail address: \url{ASTR2600@gmail.com} (feel free to add on gchat / Google Talk)
+%``mailto:Adam.Ginsburg@colorado.edu'' Adam.Ginsburg@colorado.edu
+
+\textbf{Office (lab) hours}: 
+    %Tuesday 3-4 in the Cosmos lab
+    Thursday 5:15-6:15pm (immediately after class)
+
+All other times: Adam's office is Duane D217
+
+\textbf{Student Assistant}: Cameron Wedge (\url{cameron.wedge@colorado.edu})
+
+\textbf{Meeting location}: Sommers-Bausch Observatory classroom
+
+\textbf{Meeting time}: 4pm-5:15pm Tuesdays \& Thursdays
+
+\textbf{Required Text}: \emph{Computer Programming for Scientists Using IDL} Parts 0-3
+by Dewey Anderson.  The current version is different from the text used last
+semester.  The text will appear in the bookstore in 2 ``volumes''.  Currently
+the first volume containing Part 0 \& Part 1 is available in the bookstore.
+
+% \textbf{Suggested Text}: \emph{Learning the Unix Operating System} by Peek,
+% Todino \& Strang
+
+
+\textbf{Purpose:} This is a course intended to teach you the basics of
+computer programming using the IDL language and introduce you to the
+Unix operating system.~ We will be using Sunray terminals on the cosmos
+computer in the Cosmos Lab at the Sommers-Bausch Observatory.
+
+
+\textbf{Assignments:} Programming exercises and homeworks will be done
+on the Cosmos Lab computers.~ This is not a lab class so expect to do
+the assignments outside of class time.~ Cameron and I will be available
+to help you in the lab during our scheduled office hours.~ If you need
+access to the building after hours, we will have Keith Gleason (SBO
+manager) get your CU ID card approved for entry.
+
+
+Assignments will be turned in by copying the appropriate files into
+a directory of the form:
+
+
+\verb|/home/shared/astr2600/assignment1/YourName/|
+
+
+where ``assignment1'' will be replaced with the appropriate assignment number,
+e.g. ``assignment2'' and YourName is your first and last name written in that
+fashion, e.g., AdamGinsburg.~ You each will have your own personal directories
+for turning in files and there's a separate directory for each assignment.  If
+you would prefer a directory name using a shortened or alternative version of
+your first name, please let me know and I will change the directory names.
+
+
+Most assignments are in the book.~ You should prepend your name to the
+beginning of every filename of the files you turn in, e.g.
+\verb|YourName_ex2.pro|.
+
+
+\textbf{Books:} The IDL text is required and there will be reading assignments
+given each class.~ You are expected to do the reading \emph{before} the
+next class.  There may be clicker questions in class based on the assigned
+reading.
+
+
+\textbf{Grading:}
+
+Assignments will be given each week.~ As a rule they will consist of 3
+parts: an exercise, a ``Whuduzitdo?'' (What does it do?) and a ``Graded
+Homework''. I plan to assign them on Tuesdays. The exercises and
+Whuduzitdo's will be due \emph{before the next class} (Thursday).~ The
+homework will be due the following Tuesday (by end of the day).
+
+
+The exercise part is mostly ``type this in and see what happens'' to
+show you IDL.~ (Don't just treat it as a typing exercise.~ Pay attention
+to what you're typing and what it's doing.)~ The Whuduzitdo section
+shows you IDL statements or programs and \emph{you} have to say what it
+does, i.e. you pretend to be the computer.~ This usually means answering
+a question like ``What does it print?'' or ``What's the value of this
+variable?''.~ Sometimes it explains an objective of the IDL and you have
+to say why it doesn't meet that objective and how you would fix it.~
+This is important practice for debugging (finding your mistakes in)
+programs.
+
+
+The exercise and the Whuduzitdo will each be given a grade of 0, 1 or 2
+points. ~
+
+~ 2 points if you do the entire thing
+
+~ 1 point if it seems a poor or partial effort in some fashion \emph{or
+is turned in late}.
+
+~ 0 points if you don't do it, or do so little of it that I can't
+justify giving you 1 point
+
+The total grade for all exercises \& Whuduzitdo's combined will count as
+15\% of your grade.
+
+\emph{No assignment will be accepted more than 2 weeks late.}
+
+
+Notice that the correctness of answers to the Whuduzitdo's don't count
+toward the grade.~ The objective is to get you to \emph{try} and figure
+it out, no worrying about whether you got it right.~ It's a learning
+exercise, not a test of your knowledge.
+
+
+Homeworks will be graded on a 0-100\% scale. There is a late penalty of
+3 points per day.
+
+Weekends and holidays  do not count in the late
+penalty assessment, e.g., a homework due at midnight on Tuesday night
+will take a 3 point hit if you turn it in on Wednesday, a 12 point hit if
+you turn it on Friday and a 15 point hit if you turn it on Saturday,
+Sunday or Monday.
+
+I will waive your largest homework late penalty for the semester.
+
+
+There \emph{may} be one exam that would consist almost entirely of
+things like you find in the Whuduzitdo's.~ It would count the same as a
+single homework.
+
+Letter grades are assigned in 10-point bands, i.e., A's are
+90-100, B's 80-89, etc.
+
+
+\textbf{Advice:} You can usually tell if your homework is working.~
+\emph{Don't} turn in homework assignments that don't work.~ I don't give
+much credit for something that doesn't work.~ Take the 3-point late
+penalty and get help the next day.~ That's why the late penalty is as
+small as it is.~ But BEWARE: Don't habitually turn in late assignments.~
+The late penalties will build up faster than you think.~ It's a shame to
+find your A-level work earning you a grade of C (or worse).~ Many of the
+assignments build on earlier assignments so don't plan on ``skipping''
+an assignment to turn it later.~ Getting behind
+in this class will snowball on you.~ Stay caught up.
+
+\textbf{Clickers (and attendance):}  Clickers may be used in class.  These may
+be survey questions or “What does it do?” questions.  10\% of your grade will
+be based on clicker responses.  Most of this grade will be participation,
+though a small portion will be correctness when there is a right answer.
+Attendance is required to get the clicker credit.  Excused absences will not
+count against your grade.
+
+\begin{tabular}[h]{|cc|}
+    Class Component & Grade Percentage \\
+    Exercises and Whuduzitdo?s & 15\% \\
+    Clickers and Attendance & 10\% \\
+    Homework & 75\% \\
+\end{tabular}
+
+
+
+\textbf{Rough course outline:}
+
+How computers work (Chapter 0) will be mixed in to the class. 
+
+Weeks 1-5: Introduction
+
+\begin{itemize}
+    \item Unix
+    \item Interactive IDL:  Chapters 1 - 9
+        \begin{itemize}
+            \item ~ Data types, equations, built-in procedures \& functions, graphics
+        \end{itemize}
+    \item Assignments dealing with: calculations, reading/writing files,
+displaying data (plotting), images
+\end{itemize}
+
+
+Weeks 6-10:~ Programming in IDL~
+
+\begin{itemize}
+\item writing IDL scripts \& programs~ Chapters 10, 11
+
+\item flow control constructs, IF, FOR, WHILE~ ~ Ch 12
+
+\item writing your own procedures \& functions ~ Ch 13
+
+\item Software design Ch 14
+
+\item data structures~ Ch 15
+
+\item Animation~ Ch 16
+
+\item Assignments dealing with dynamical simulations, differential
+equations, N-body simulation
+\end{itemize}
+
+
+%Fall break (12 weeks before, 3 weeks after)
+
+
+Weeks 11-15:~ More-advanced techniques
+
+\begin{itemize}
+\item Random numbers, interpolation, curve-fitting
+
+\item Object-oriented programming and ``classes''
+
+\item Recursion:~ factorial, binary tree, Measuring stars in telescope
+images
+
+\item An introduction to Fortran and/or Python
+\end{itemize}
+
+
+
+
+
+
+\textbf{To activate your cosmos account:} Get on a computer on campus
+(not from home) and use a web browser and go to
+
+
+\url{https://sac.colorado.edu/}
+
+
+There you can use the drop down menu to select ``cosmos'', enter your CU
+login name and IdentiKey Password and activate your account.~ You should
+then be able to login to the cosmos computers in the Cosmos Lab.
+
+
+Standard Caveat: All aspects of this syllabus are subject to change.
+
+\textbf{HONOR CODE}
+
+
+As a CU student, you are required to be familiar with CU's honor code
+and to not violate it.
+
+
+This class will require some special care because the programming
+environment often has a collaborative feel.~ Indeed, much of my
+programming expertise comes from seeing how others program and
+incorporating the good ideas I've seen.~ But the work-world is not the
+school-world and what is encouraged there is often forbidden here. ~
+
+
+Under no circumstances should any computer files be electronically
+shared without explicit permission from me (e.g., someone brings in a
+neat data file we all want to analyze). ~
+
+
+Talking with others about the \emph{exercises} is encouraged even while
+you are doing them.
+
+
+Don't just ask other people the answer to the Whuduzitdo's.~ Try and
+figure it out.~ It's a learning experience.~ That's why
+\emph{correctness} of your answer doesn't count toward the grade.
+
+
+Homeworks should be entirely your own work.  You may not work in groups and you
+may not share code.
+
+
+
+
+
+
+\textbf{The Boulder Provost's Disability Task Force recommended syllabus statement:}
+
+(1)  If you qualify for accommodations because of a disability, please submit to
+your professor a letter from Disability Services in a timely manner (for exam
+accommodations provide your letter at least one week prior to the exam) so that
+your needs can be addressed. Disability Services determines accommodations
+based on documented disabilities. Contact Disability Services at 303-492-8671
+or by e-mail at dsinfo@colorado.edu.
+
+If you have a temporary medical condition or injury, see Temporary Medical
+Conditions: Injuries, Surgeries, and Illnesses guidelines under Quick Links at
+Disability Services website and discuss your needs with your professor.
+
+(2) It is the responsibility of every instructor to clearly explain his or her
+procedures about absences due to religious observances in the course syllabus
+so that all students are fully informed, in writing, near the beginning of each
+semester's classes.  Campus policy regarding religious observances states
+that faculty must make reasonable accommodation for them and in so doing, be
+careful not to inhibit or penalize those students who are exercising their
+rights to religious observance. Faculty should be aware that a given religious
+holiday may be observed with very different levels of attentiveness by
+different members of the same religious group and thus may require careful
+consideration to the particulars of each individual case.  See
+\url{http://www.colorado.edu/policies/fac_relig.html}
+
+If you have questions about providing students with religious accommodations,
+please contact the Office of Discrimination and Harassment at 303-492-2797.
+
+A comprehensive calendar of the religious holidays most commonly observed by
+CU-Boulder students is at \url{http://www.interfaithcalendar.org/}
+
+Recommended syllabus statement:
+
+Campus policy regarding religious observances requires that faculty make every
+effort to deal reasonably and fairly with all students who, because of
+religious obligations, have conflicts with scheduled exams, assignments or
+required attendance.  In this class, up to three missed classes will be excused
+for religions obligations.  The 3-points-per-day “late fee” will not be assessed
+for excused absences, but the 2-week deadline will still be enforced.
+See full details at \url{http://www.colorado.edu/policies/fac_relig.html}
+
+(3)  Faculty and students should be aware of the campus “Classroom
+Behavior” policy at
+\url{http://www.colorado.edu/policies/classbehavior.html} as well as faculty rights
+and responsibilities listed at
+\url{http://www.colorado.edu/FacultyStaff/faculty-booklet.html#Part_1}
+These documents describe examples of unacceptable classroom behavior and
+provide information on how to handle such circumstances should they arise.
+Faculty are encouraged to address the issue of classroom behavior in the
+syllabus.
+
+Recommended syllabus statement:
+
+Students and faculty each have responsibility for maintaining an appropriate
+learning environment. Those who fail to adhere to such behavioral standards may
+be subject to discipline. Professional courtesy and sensitivity are especially
+important with respect to individuals and topics dealing with differences of
+race, color, culture, religion, creed, politics, veteran's status, sexual
+orientation, gender, gender identity and gender expression, age, disability,
+and nationalities.  Class rosters are provided to the instructor with the
+student's legal name. I will gladly honor your request to address you by an
+alternate name or gender pronoun. Please advise me of this preference early in
+the semester so that I may make appropriate changes to my records.  See policies at
+\url{http://www.colorado.edu/policies/classbehavior.html}   and at
+\url{http://www.colorado.edu/studentaffairs/judicialaffairs/code.html#student_code}
+
+
+
+(4)  The Office of Discrimination and Harassment recommends the following
+syllabus statement:
+
+The University of Colorado Boulder (CU-Boulder) is committed to maintaining a
+positive learning, working, and living environment. The University of Colorado
+does not discriminate on the basis of race, color, national origin, sex, age,
+disability, creed, religion, sexual orientation, or veteran status in admission
+and access to, and treatment and employment in, its educational programs and
+activities. (Regent Law, Article 10, amended 11/8/2001).  CU-Boulder will not
+tolerate acts of discrimination or harassment based upon Protected Classes or
+related retaliation against or by any employee or student. For purposes of this
+CU-Boulder policy, “Protected Classes” refers to race, color, national origin,
+sex, pregnancy,  age, disability, creed, religion, sexual orientation, gender
+identity, gender expression,  or veteran status.  Individuals who believe they
+have been discriminated against should contact the Office of Discrimination and
+Harassment (ODH) at 303-492-2127 or the Office of Student Conduct (OSC) at
+303-492-5550.  Information about the ODH, the above referenced policies, and
+the campus resources available to assist individuals regarding discrimination
+or harassment can be obtained at \url{http://www.colorado.edu/odh}
+
+(5)  The Boulder campus has a student Honor Code and individual faculty members
+are expected to familiarize themselves with its tenets and follow the approved
+procedures should violations be perceived.  The Honor Council recommended
+syllabus statement:
+
+All students of the University of Colorado at Boulder are responsible for
+knowing and adhering to the academic integrity policy of this institution.
+Violations of this policy may include: cheating, plagiarism, aid of academic
+dishonesty, fabrication, lying, bribery, and threatening behavior.  All
+incidents of academic misconduct shall be reported to the Honor Code Council
+(honor@colorado.edu; 303-735-2273). Students who are found to be in violation
+of the academic integrity policy will be subject to both academic sanctions
+from the faculty member and non-academic sanctions (including but not limited
+to university probation, suspension, or expulsion). Other information on the
+Honor Code can be found at \url{http://www.colorado.edu/policies/honor.html}  and at
+\url{http://www.colorado.edu/academics/honorcode/}
+
+\end{document}
