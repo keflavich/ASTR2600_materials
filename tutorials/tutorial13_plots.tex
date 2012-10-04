@@ -32,7 +32,7 @@
 \headsep=0.25in         %
 
 % Homework Specific Information
-\newcommand{\hmwkTitle}{Tutorial: Array Indexing / Spectroscopy}
+\newcommand{\hmwkTitle}{Tutorial: Plots and Color}
 \newcommand{\hmwkDueDate}{DATE, 4:00 PM}
 \newcommand{\hmwkClass}{ASTR 2600}
 \newcommand{\hmwkClassTime}{4:00 PM T/Th}
@@ -136,7 +136,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Make title
-\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+%\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\title{Tutorial: Plotting and Colors}
 \date{}
 %\author{\textbf{\hmwkAuthorName}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,133 +145,126 @@
 \begin{document}
 \begin{spacing}{1.0}
 %\maketitle
-\newpage
+%\newpage
 
 
 
-\section{Tutorial: Array Indexing and Spectroscopy}
+\section{Tutorial: Plotting and Colors}
 
-We will examine the properties of a spectrum!
+We're going to try to understand a little more about IDL's colors.  In the
+process, we're going to do quite a bit of program editing work.
 
-\section{Read the data}
-There is a spectrum file sitting in the shared data directory:\\
-\verb|/home/shared/astr2600/data/spectrum.txt|\\
-The wavelength is in units of Angstroms (\AA).  The flux units are
-not specified.
+In order to cut down a bit on typing interactively at the command prompt,
+I'm providing you with some functioning code.
 
+\subsection{Get the code from git}
 
-Open this in a text editor (\verb|gedit|, \verb|vim|, or whatever).\\
-Examine it.  How many lines are in the file?  \underline{\hspace{3cm}}
-How many columns? \underline{\hspace{3cm}}
+Change directories to your ASTR2600 git fork directory.
 
-Keep that path handy as you open IDL.
+In that directory, do the following:
 
-In IDL, find out how many lines there are in the file using \verb|file_lines|:\\
+First, this command:\\
+\verb|git remote add upstream git@github.com:ASTR2600f12/ASTR2600.git| \\
+This crazily verbose command means:
+``Add the ORIGINAL repository (that Adam made) as a `remote repository' in
+my clone.  Call it `upstream'. ''
+
+What is a remote repository?  It's a location on some other server you can
+``push'' to (send your changes to) or ``pull'' from (get changes other people
+have made).  
+
+Why ``upstream''?  Because new code can flow from it, but you can't send your
+changes directly to it.  
+
+OK, why do this at all?  Because someone else - in this case, Adam - made a 
+change to the original code, but your ``fork'' doesn't know about it yet.  So
+you have to tell it to get the changes.
+
+Next step:\\
+\verb|git fetch upstream|
+
+This will grab all of the changes from the remote (upstream) branch, but it
+doesn't make any changes to your code at all yet.  Basically, this just
+downloads information from the server.
+
+\verb|git merge upstream/master|
+Now you're ``merging'' the changes that I made with your files.  This WILL
+make changes to your code!  “upstream" is the name of the remote repository,
+“master" is the name of a “branch", which is something we haven't discussed;
+we'll get there eventually.  For now, we always use master.
+
+If it works, you should see something approximately like:
 \begin{lstlisting}
-nlines = file_lines('/home/shared/astr2600/data/spectrum.txt')
-\end{lstlisting}
+Updating e2c3572..04e1e45
+Fast-forward
+ Tutorial13/color_ref.pro |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+ create mode 100644 Tutorial13/color_ref.pro
+\end{lstlisting}    
 
-Check to make sure that agrees with the number you found above.
+The ``fast-forward'' bit means your code was out of date compared to upstream,
+and you've now ``caught up''.  
 
-Now, make two variables to store the wavelength and flux arrays.
-Which column is the flux and which is the wavelength? \\
-Flux Column \#: \underline{\hspace{3cm}}
-Wavelength Column \#: \underline{\hspace{3cm}}
-\begin{verbatim}
-wavelength = fltarr(nlines)
-flux = fltarr(nlines)
-; replace ncols with the number of columns
-xy = fltarr(ncols, nlines)
-\end{verbatim}
+\verb|Tutorial13/color_ref.pro| is a file that has changed (there may be
+others, but this one should definitely be there).  The \verb|+|'s indicate how
+many new lines have been added; since this file is completely new, all of the
+lines are added.
 
-Now, read the data in from the file.  
-\begin{lstlisting}
-openr,lun,'/home/shared/astr2600/data/spectrum.txt',/get_lun
-readf,lun,xy
-wavelength = xy[0,*]
-flux = xy[1,*]
-free_lun,lun
-\end{lstlisting}
+Now, finally, you need to do:\\
+\verb|git push| \\
+to send the merge back to \emph{your} remote repository: you so far have only
+made changes to the files on cosmos, and the download came from upstream, which
+is not yours.
 
-Remember what all that does?  Just to see some mistakes you could have made, let's try plotting some things.
+There is a lot more information on the push/pull model and all the tasks we
+just did at this website:
+\url{https://help.github.com/articles/using-pull-requests}, but I think much of
+the language will be incomprehensible to you at this point.  
 
-\verb|plot,xy|
+\subsection{Use the new code}
+Open \verb|Tutorial13/color_ref.pro| in a text editor and keep it open.
 
-What does this look like?  Why?  (just think about it.  Maybe print out a few elements of \verb|xy| to check)
+Open IDL.  At the IDL prompt, run \verb|Tutorial13/color_ref.pro|.
+For example, if you started IDL in the ASTR2600 fork directory, you'd do:\\
+\verb|.r Tutorial13/color_ref.pro|
 
-\section{Examine the data}
-Zoom in on the line centered at 1330 angstroms.
+You have a color table!  But\dots what does it mean?  Looking at
+\verb|color_ref.pro| probably doesn't tell you much.  There are no axis labels!
+There are no comments!  OH NO!
 
-First, set the width of the zoom and the center:
-\begin{lstlisting}
-zoomwidth=10
-center=1330
-\end{lstlisting}
+Your job is to correct this!  
 
-Then, set your upper and lower bounds: \nobreak
-\begin{verbatim}
-lowerbound = center - zoomwidth/2
-upperbound = center + zoomwidth/2
-\end{verbatim}
+ASSIGNMENT: Correct \verb|color_ref.pro| to be more useful.  Make sure it is
+adequately commented.  Commit your changes. When you have a
+\verb|color_ref.pro| you're satisfied with, \verb|git push|  to send the
+changes to the repository and then create a \emph{pull request} to suggest that
+I accept your changes.  I'll give bonus points to whoever has the best
+\verb|color_ref.pro|.
 
-Now, use the \verb|where| function to pick out the region you want to plot:
-\begin{verbatim}
-zoomregion = where( (wavelength gt upperbound) and (wavelength lt lowerbound), npts )
-\end{verbatim}
-% zoomregion = where( (wavelength lt upperbound) and (wavelength gt lowerbound), npts )
+\subsection{Playing with Plots and Colors}
+Next, run the \verb|eyeball.pro| script (note that this is a script, not
+a program).  Also open it in a text editor.
 
-What is \verb|npts|?  \underline{\hspace{3cm}}\\
-Why?  What did we do wrong?  Fix it!
+Add comments to \verb|eyeball.pro| explaining what the unexplained lines (which
+we identified in class) do.  
 
-Now plot up your results:
-\begin{verbatim}
-plot,wavelength[zoomregion],flux
-\end{verbatim}
-% plot,wavelength[zoomregion],flux[zoomregion]
+If there's anything you dislike about the so-called eyes, see if you can fix
+them.  Possible fixes: 
+\begin{enumerate}
+    \item Convince IDL to draw within the lines 
+    \item Make the eyes elliptical
+    \item Add some other features frequently seen in eyes (e.g. whites)
+\end{enumerate}
 
-Does this look like the region centered around 1330 that we had looked at before?  \\
-Why not? What did we do wrong this time?  Again, fix it!
+Finally, add a mouth!  This can probably be done with a parabola.  You
+will also probably need to change the plot limits.  
 
-\section{Measurements}
-We shall measure the data.
+Do this all within your personal \verb|eyeball.pro|.  Again, save and commit
+your changes, and when you're done, push your changes and create a pull
+request.
 
-First, what is $\Delta \lambda$?  I expect you to be able to get this, but ask a
-neighbor if you're not sure how (don't just get the answer, understand the
-method)\\
-$\Delta \lambda=$\underline{\hspace{3cm}}
-
-What is the continuum?  (approximately, get it from the plot) \\
-$continuum\approx$\underline{\hspace{3cm}}
-
-Now, determine how much light is absorbed.  There are multiple ways you can do
-this.  One way is to determine the ``absorption spectrum'' as we did in the
-lecture example.  Another would be to determine the ``area under the continuum''
-and the ``area under the spectrum'' and take the difference.  
-Pick one of these methods - or another if you can think of any - and determine the
-absorbed flux.
-
-Absorbed flux: \underline{\hspace{3cm}}
-
-\section{Equivalent Width}
-What is the equivalent width of the line?  Recall that equivalent width means
-``the width of the box that has the same area as the absorption line.''  It is
-a box going from the bottom to the top of the plot.
-$EQW=$\underline{\hspace{3cm}}\AA
-
-Overplot a box centered on the line center with the correct height and width.
-Use \verb|color='00AAFF'x| (orange).
-
-To plot a box, you need to draw 4 lines.  You can determine what the 4 corners are:\\
-$x1=$\underline{\hspace{3cm}}  $y1=$\underline{\hspace{3cm}} \\
-$x2=$\underline{\hspace{3cm}}  $y2=$\underline{\hspace{3cm}} \\
-$x3=$\underline{\hspace{3cm}}  $y3=$\underline{\hspace{3cm}} \\
-$x4=$\underline{\hspace{3cm}}  $y4=$\underline{\hspace{3cm}} \\
-
-Then, you need an array with \emph{5} elements!  (each pair of corners gets you one line, but plot
-doesn't automatically draw from the last back to the first)\\
-\verb|oplot,[x1,x2,x3,x4,x1],[y1,y2,y3,y4,y1],color='00AAFF'x|
-
-You've now measured and visualized Equivalent Width.  We'll do more with it eventually.
+ASSIGNMENT: Comment, fix up (as much as you'd like, but at least a little),
+and add a mouth to \verb|eyeball.pro|.
 
 \end{spacing}
 \end{document}

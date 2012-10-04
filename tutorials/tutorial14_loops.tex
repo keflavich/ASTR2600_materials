@@ -11,6 +11,10 @@
 \lstset{breakatwhitespace=true}
 \renewcommand{\ttdefault}{cmtt}
 
+\usepackage[compact]{titlesec}
+%\titlespacing{section}{0mm}{.5mm}{.5mm}[]
+
+
 \usepackage{Tabbing}
 \usepackage{textcomp}
 \usepackage{fancyhdr}
@@ -32,7 +36,7 @@
 \headsep=0.25in         %
 
 % Homework Specific Information
-\newcommand{\hmwkTitle}{Tutorial: Array Indexing / Spectroscopy}
+\newcommand{\hmwkTitle}{Tutorial: Loops}
 \newcommand{\hmwkDueDate}{DATE, 4:00 PM}
 \newcommand{\hmwkClass}{ASTR 2600}
 \newcommand{\hmwkClassTime}{4:00 PM T/Th}
@@ -148,129 +152,133 @@
 
 
 
-\section{Tutorial: Array Indexing and Spectroscopy}
+\section{Tutorial: Loops \& Flow Control}
 
-We will examine the properties of a spectrum!
+This tutorial will involve exercises to get you accustomed to creating and
+manipulating flow control constructs.  It will move on to complex uses of
+different data structures and comparison operators.
 
-\section{Read the data}
-There is a spectrum file sitting in the shared data directory:\\
-\verb|/home/shared/astr2600/data/spectrum.txt|\\
-The wavelength is in units of Angstroms (\AA).  The flux units are
-not specified.
+Create a \emph{program} called \verb|isthenumberbig.pro|.  As you might infer
+from the name, it will tell you if a number is big.  To create a program, open
+a file with the name as specified above (\verb|isthenumberbig.pro|) in gedit.
+Please do this in \emph{your} ASTR2600 directory that you have done 
+\verb|git init| in, \emph{not} your ASTR2600-fork directory.  If you'd like,
+you can create a \verb|tutorial| subdirectory and open the file in there.  You
+probably should.
 
+This program shall do the following:
+\begin{enumerate}
+    \item Read in a number from the user
+    \item Say ``That is a big number'' if the number is greater than 100
+    \item Repeat unless the user has input the number -1
+\end{enumerate}
 
-Open this in a text editor (\verb|gedit|, \verb|vim|, or whatever).\\
-Examine it.  How many lines are in the file?  \underline{\hspace{3cm}}
-How many columns? \underline{\hspace{3cm}}
+This program should include at least one loop construct; it is up to you to
+figure out which kind of loop (\verb|while|, \verb|repeat until|, \verb|for|)
+is most appropriate.  It should include an \verb|if| statement.  It may require
+multiple \verb|if| statements and it may require the \verb|break| statement.
+It may also be useful to have a \verb|case| statement.  The \verb|read|
+statement should have a descriptive prompt.  And, as always, there should be
+comments throughout!
 
-Keep that path handy as you open IDL.
+Make sure your code works (test it with a few numbers: -10, 50, 150, 1d30).
 
-In IDL, find out how many lines there are in the file using \verb|file_lines|:\\
+\section{\texttt{stop}}
+Now insert a \verb|stop| statement in your code, somewhere inside the loop.
+Run the code.  You will be dumped out with the following prompt:
 \begin{lstlisting}
-nlines = file_lines('/home/shared/astr2600/data/spectrum.txt')
+% Compiled module: $MAIN$.
+% Stop encountered: $MAIN$             ##
+\end{lstlisting}   
+where \verb|##| is the line number of the \verb|stop| statement.
+
+At this point, examine your variables: Try using the \verb|print| and
+\verb|help| statements.  See what's going on.
+
+When you're done, use \verb|.continue| to continue.  You'll be stopped again,
+though, since you're inside a loop.  Use \verb|help| and \verb|print| again to
+see what's changed.  Then \verb|.continue| again, then quit.  Once you're done
+examining the inside of your loop, remove the \verb|stop| statement.
+
+\begin{samepage}
+\section{crash!}
+Now, in the same location where you had the \verb|stop| statement, add the
+following line:\\
+\verb|y = zzzz^2|
+
+This line will cause a crash, with the text: \\
+\begin{lstlisting}
+% Variable is undefined: ZZZZ.
+% Execution halted at: $MAIN$             15
 \end{lstlisting}
 
-Check to make sure that agrees with the number you found above.
+Note that the ``crash'' has nearly the same effect as the stop statement:
+you are back in interactive mode, and need to use \verb|.c| to continue.  As
+long as the variable \verb|zzzz| does not exist, you'll continue to be dropped
+out just like with \verb|stop| above.  
 
-Now, make two variables to store the wavelength and flux arrays.
-Which column is the flux and which is the wavelength? \\
-Flux Column \#: \underline{\hspace{3cm}}
-Wavelength Column \#: \underline{\hspace{3cm}}
-\begin{verbatim}
-wavelength = fltarr(nlines)
-flux = fltarr(nlines)
-; replace ncols with the number of columns
-xy = fltarr(ncols, nlines)
-\end{verbatim}
+However, try defining the number \verb|zzzz=5| (or any number of your choosing;
+it really doesn't matter).  Then do \verb|.c|.  What happens next?
+\end{samepage}
 
-Now, read the data in from the file.  
-\begin{lstlisting}
-openr,lun,'/home/shared/astr2600/data/spectrum.txt',/get_lun
-readf,lun,xy
-wavelength = xy[0,*]
-flux = xy[1,*]
-free_lun,lun
-\end{lstlisting}
+\section{Comparison from Text}
+Write a function called \verb|compare_values| in a file
+\verb|compare_values.pro| that takes 3 inputs: \verb|value1|,
+\verb|comparison_name|, and \verb|value2|.  The program should use a
+\verb|case| statement that will return the appropriate comparison.  i.e., if
+you call \verb|print,compare_values(2,'gt',1)|, the function should return the
+value of \verb|2 gt 1|, which is “True" or \verb|1|.
 
-Remember what all that does?  Just to see some mistakes you could have made, let's try plotting some things.
+Make sure it can deal with the following comparison operators:\\
+\verb|gt lt ge le eq ne < >|
 
-\verb|plot,xy|
+\section{Conditionals}
+Create a new file called \verb|test_conditionals.pro|.  This is a reference
+file for your own use now and in the future.
 
-What does this look like?  Why?  (just think about it.  Maybe print out a few elements of \verb|xy| to check)
+You will create a series of ``test conditionals'' in this file by using the
+ternary operator.  The tests will take the following form:\\
+\verb|print,"Is x gt y?  ",(x gt y) ? "yes" : "no"|
 
-\section{Examine the data}
-Zoom in on the line centered at 1330 angstroms.
+Create tests for the following, but \emph{fill these out by hand}
+before you run them! (i.e., circle ``yes'' or ``no'')\\
 
-First, set the width of the zoom and the center:
-\begin{lstlisting}
-zoomwidth=10
-center=1330
-\end{lstlisting}
+HINT: To make this easier, you can make use of the \verb|list| and/or the
+\verb|hash| construct.  You should use \verb|foreach| loops.  You should
+definitely make use of the \verb|compare_values| function you created above.
 
-Then, set your upper and lower bounds: \nobreak
-\begin{verbatim}
-lowerbound = center - zoomwidth/2
-upperbound = center + zoomwidth/2
-\end{verbatim}
+{\large
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    x & comparison & y & yes or no \\
+    \hline
+    1 & gt & 0 & yes no \\ 
+    1 & > & 0 & yes no \\ 
+    5 & > & 0 & yes no \\ 
+    4 & > & 0 & yes no \\ 
+    1 & > & 7 & yes no \\ 
+    5 & > & 7 & yes no \\ 
+    4 & > & 7 & yes no \\ 
+    `0' & eq & 0 & yes no \\ 
+    `1' & eq & 0 & yes no \\ 
+    0.0 & eq & 0 & yes no \\ 
+    1.0 & eq & 1 & yes no \\ 
+    0.5d & eq & 0.5 & yes no \\ 
+    0.2d & eq & 0.2 & yes no \\ 
+    \verb|2^(-30d)| & eq & \verb|2^(-30e)|& yes no \\ 
+    \verb|1.1+2^(-30d)| & eq & \verb|1.1+2^(-30e)|& yes no \\ 
+    `yes' & eq & "yes" & yes no \\ 
+    \verb|sin(!pi)| & lt & \verb|sin(!dpi)| & yes no \\ 
+    \verb|cos(!pi)| & eq & \verb|cos(!dpi)| & yes no \\ 
+    \hline
+\end{tabular}
+}
 
-Now, use the \verb|where| function to pick out the region you want to plot:
-\begin{verbatim}
-zoomregion = where( (wavelength gt upperbound) and (wavelength lt lowerbound), npts )
-\end{verbatim}
-% zoomregion = where( (wavelength lt upperbound) and (wavelength gt lowerbound), npts )
+Add any tests you can think of to this. 
 
-What is \verb|npts|?  \underline{\hspace{3cm}}\\
-Why?  What did we do wrong?  Fix it!
-
-Now plot up your results:
-\begin{verbatim}
-plot,wavelength[zoomregion],flux
-\end{verbatim}
-% plot,wavelength[zoomregion],flux[zoomregion]
-
-Does this look like the region centered around 1330 that we had looked at before?  \\
-Why not? What did we do wrong this time?  Again, fix it!
-
-\section{Measurements}
-We shall measure the data.
-
-First, what is $\Delta \lambda$?  I expect you to be able to get this, but ask a
-neighbor if you're not sure how (don't just get the answer, understand the
-method)\\
-$\Delta \lambda=$\underline{\hspace{3cm}}
-
-What is the continuum?  (approximately, get it from the plot) \\
-$continuum\approx$\underline{\hspace{3cm}}
-
-Now, determine how much light is absorbed.  There are multiple ways you can do
-this.  One way is to determine the ``absorption spectrum'' as we did in the
-lecture example.  Another would be to determine the ``area under the continuum''
-and the ``area under the spectrum'' and take the difference.  
-Pick one of these methods - or another if you can think of any - and determine the
-absorbed flux.
-
-Absorbed flux: \underline{\hspace{3cm}}
-
-\section{Equivalent Width}
-What is the equivalent width of the line?  Recall that equivalent width means
-``the width of the box that has the same area as the absorption line.''  It is
-a box going from the bottom to the top of the plot.
-$EQW=$\underline{\hspace{3cm}}\AA
-
-Overplot a box centered on the line center with the correct height and width.
-Use \verb|color='00AAFF'x| (orange).
-
-To plot a box, you need to draw 4 lines.  You can determine what the 4 corners are:\\
-$x1=$\underline{\hspace{3cm}}  $y1=$\underline{\hspace{3cm}} \\
-$x2=$\underline{\hspace{3cm}}  $y2=$\underline{\hspace{3cm}} \\
-$x3=$\underline{\hspace{3cm}}  $y3=$\underline{\hspace{3cm}} \\
-$x4=$\underline{\hspace{3cm}}  $y4=$\underline{\hspace{3cm}} \\
-
-Then, you need an array with \emph{5} elements!  (each pair of corners gets you one line, but plot
-doesn't automatically draw from the last back to the first)\\
-\verb|oplot,[x1,x2,x3,x4,x1],[y1,y2,y3,y4,y1],color='00AAFF'x|
-
-You've now measured and visualized Equivalent Width.  We'll do more with it eventually.
+Once you have completed this exercise, \verb|git add| the file, 
+\verb|git commit -a| to commit the changes, and \verb|git push| them to your
+repository.
 
 \end{spacing}
 \end{document}
