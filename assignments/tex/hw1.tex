@@ -1,0 +1,115 @@
+\documentclass[11pt,letterpaper,notitlepage,onesided]{nwh_hw}
+\usepackage{graphicx,color,amsmath,amssymb}
+%\usepackage{amssymb}
+%\usepackage{wasysym}
+\usepackage[dvips]{epsfig}
+\usepackage[pdftex,
+colorlinks,linkcolor={blue},citecolor={blue},
+urlcolor={blue}
+]{hyperref}
+
+
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\topmargin}{-0.25in} 
+\setlength{\headheight}{0.15in}
+\setlength{\headsep}{0.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\hoffset}{0in}
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{2ex}
+
+%\pagestyle{myheadings}
+%\pagestyle{fancy}
+
+\markright{ASTR 5550 ---  Spring 2012}
+
+
+% For figures:
+\usepackage{graphicx}
+
+\begin{document}
+
+\input{mymacros}
+
+%\maketitle
+\pagestyle{myheadings}
+
+\section*{Homework 1}
+
+Due Friday, 27 Jan, at the beginning of class. 
+
+%I'll choose one person at random to demonstrate in class, using my
+%computer, how to generate an array of random numbers, plot, and
+%histogram them as in Section~\ref{sec:idlskills} below. Be prepared to
+%do this.
+
+Reading Assignment: Read Wall \& Jenkins, Chapters 1 \& 2. Optional
+additional reading: For an excellent in-depth discussion of Bayesian
+vs. Frequentist methods, see Loredo, ``From Laplace to Supernova SN
+1987A: Bayesian Inference in Astrophysics,'' 1990, posted under the
+``papers'' link on the course homepage.
+
+
+\section{A Hunt for Galaxy Clusters}
+
+An astronomer is hunting for a new galaxy cluster to study. She knows
+from previous surveys of a different part of the sky that the
+probability of finding a galaxy cluster is 30\% in a single
+square-degree image (the field of view of her instrument). The
+astronomer's plan is to take images until she finds a single cluster,
+then stop.
+
+a) Find an expression for the probability $P[k]$ of the astronomer
+finding the first cluster (and stopping) after the $k^\mathrm{th}$
+image is taken.
+
+b) Show that, in your solution from a), $\Sigma_{k=1}^{\infty} P[k] = 1$
+
+c) Write a simulation of the astronomer's observations in Python/IDL/Matlab,
+run $N=1000$ trials of her observing scheme, and plot a histogram of
+frequency vs. number of images $k$ taken in a given trial. For
+comparison purposes, on your histogram, overplot your analytical
+solution for $P[k]$ from a), multiplying by a factor of 1000 to
+account for the fact that you have generated $N=1000$ trials. Does
+your histogram agree with your analytical calculation?
+
+
+\section{Bayesian Analysis of Tainted Beef Patties}
+
+Two differernt suppliers, $A$ and $B$, provide a supermarket with
+ground beef patties.  In the past, 0.01\% of the patties supplied by
+$A$ and 0.03\% of the patties supplied by $B$ have been found to be
+contaminated by E.\ Coli. $A$ supplies five times as many patties to
+the supermarket as $B$. 
+
+An unsuspecting consumer is found to be infected by E.\ Coli due to
+eating a burger purchased at this supermarket. Using Baye's Theorem,
+what is the probability that the contaminated burger was supplied by
+$A$?
+
+
+\section{PDF, CDF, and Moments}
+
+Consider the following probability density function (PDF): 
+
+\[ 
+f (x) = \begin{cases}
+  x e^{-x} &  x \geq 0, \\
+  0 & x < 0.
+\end{cases}
+\]
+
+a) Plot the PDF, and verify that $\int_{-\infty}^\infty f(x) dx = 1$.
+
+b) Find the cumulative distribution function (CDF), $F(x)$.
+
+c) Find the mean, $\mu \equiv \exn{x} $ of the distribution. What fraction of the total probability lies below the mean? 
+
+d) Find the variance $\sigma^2 \equiv \var{x}$ of the distribution. What fraction of the total probability lies within the interval $\mu \pm \sigma$, where $\sigma = \sqrt{\sigma^2}$ is the standard deviation? 
+
+
+
+\end{document}

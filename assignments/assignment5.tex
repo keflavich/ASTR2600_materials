@@ -1,0 +1,245 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+ %\documentclass[11pt,letterpaper,notitlepage]{article}
+ \documentclass{article}
+ % Change "article" to "report" to get rid of page number on title page
+ \usepackage{amsmath,amsfonts,amsthm,amssymb}
+ \usepackage{setspace}
+ \usepackage{listings}
+ \usepackage{Tabbing}
+ \usepackage{textcomp}
+ \usepackage{fancyhdr}
+ \usepackage{lastpage}
+ \usepackage{extramarks}
+ \usepackage{chngpage}
+ \usepackage{soul,color}
+ \usepackage{graphicx,float,wrapfig}
+ \usepackage{parskip}
+ \usepackage[utf8]{inputenc}
+ 
+ % In case you need to adjust margins:
+ \topmargin=-0.45in      %
+ \evensidemargin=0in     %
+ \oddsidemargin=0in      %
+ \textwidth=6.5in        %
+ \textheight=9.0in       %
+ \headsep=0.25in         %
+ 
+ % Homework Specific Information
+ \newcommand{\hmwkTitle}{Assignment 5: Programming, \texttt{IF..THEN},  \texttt{CASE}, \texttt{FOR}, \texttt{WHILE} loops, dynamical modelling}
+ \newcommand{\exDueDate}{October 2th, 4:00 PM}
+ \newcommand{\hmwkDueDate}{October 4th, 11:59:59 PM}
+ \newcommand{\hmwkClass}{ASTR 2600}
+ \newcommand{\hmwkClassTime}{4:00 PM T/Th}
+ \newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+ \newcommand{\hmwkAuthorName}{Adam Ginsburg}
+ 
+ % Setup the header and footer
+ \pagestyle{fancy}                                                       %
+ %\lhead{\hmwkAuthorName}                                                 %
+ \chead{\hmwkClass\: \hmwkTitle}  %
+ \rhead{\firstxmark}                                                     %
+ \lfoot{\lastxmark}                                                      %
+ \cfoot{}                                                                %
+ \rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+ \renewcommand\headrulewidth{0.4pt}                                      %
+ \renewcommand\footrulewidth{0.4pt}                                      %
+ 
+ \usepackage[utf8]{inputenc}
+ \usepackage[unicode=true]{hyperref}
+ \hypersetup{breaklinks=true,
+             bookmarks=true,
+             pdfauthor={},
+             pdftitle={},
+             colorlinks=true,
+             urlcolor=blue,
+             linkcolor=magenta,
+             pdfborder={0 0 0}}
+ 
+ % This is used to trace down (pin point) problems
+ % in latexing a document:
+ %\tracingall
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Some tools
+ \newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                     \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+ \newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1}{}\nobreak}%
+ 
+ \newlength{\labelLength}
+ \newcommand{\labelAnswer}[2]
+   {\settowidth{\labelLength}{#1}%
+    \addtolength{\labelLength}{0.25in}%
+    \changetext{}{-\labelLength}{}{}{}%
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+    \marginpar{\fbox{#1}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    \changetext{}{+\labelLength}{}{}{}}%
+ 
+ \setcounter{secnumdepth}{0}
+ \newcommand{\homeworkProblemName}{}%
+ \newcounter{homeworkProblemCounter}%
+ \newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+   {\stepcounter{homeworkProblemCounter}%
+    \renewcommand{\homeworkProblemName}{#1}%
+    \section{\homeworkProblemName}%
+    \enterProblemHeader{\homeworkProblemName}}%
+   {\exitProblemHeader{\homeworkProblemName}}%
+ 
+ \newcommand{\problemAnswer}[1]
+   {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+ 
+ \newcommand{\problemLAnswer}[1]
+   {\labelAnswer{\homeworkProblemName}{#1}}
+ 
+ \newcommand{\homeworkSectionName}{}%
+ \newlength{\homeworkSectionLabelLength}{}%
+ \newenvironment{homeworkSection}[1]%
+   {% We put this space here to make sure we're not connected to the above.
+    % Otherwise the changetext can do funny things to the other margin
+ 
+    \renewcommand{\homeworkSectionName}{#1}%
+    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+    \addtolength{\homeworkSectionLabelLength}{0.25in}%
+    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+    \subsection{\homeworkSectionName}%
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+   {\enterProblemHeader{\homeworkProblemName}%
+ 
+    % We put the blank space above in order to make sure this margin
+    % change doesn't happen too soon (otherwise \sectionAnswer's can
+    % get ugly about their \marginpar placement.
+    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+ 
+ \newcommand{\sectionAnswer}[1]
+   {% We put this space here to make sure we're disconnected from the previous
+    % passage
+ 
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+    \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+    \marginpar{\fbox{\homeworkSectionName}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    }%
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Make title
+ \title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+ \date{}
+ %\author{\textbf{\hmwkAuthorName}}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ \begin{document}
+ \begin{spacing}{1.0}
+ %\maketitle
+ %\newpage
+ 
+ 
+ 
+ \section{\textbf{Exercise:} \emph{  Due by classtime \exDueDate}}
+ 
+ As usual, do all of this in your \verb@assignment5/@ directory.  
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ \textbf{Exercise 10.0}: Creating a script file to set the values of physical constants \& units  \\
+ Open a journal file, \verb@YourName_ex4_10.0.pro@, to do the interactive part. 
+
+ \textbf{Exercise 10.1:} Creating an interactive script file  \\
+ Open a journal file, \verb@YourName_ex4_10.1.pro@, to do the interactive part. 
+
+ \textbf{Exercise 10.2:} Contour plotting using a script  \\
+ Last line on page 22 says you should name the JPEG file as
+ \verb@ex10_2_plot.jpg@.  You should, of course, stick \verb@YourName_@ on the
+ front of that.) \\
+ Open a journal file, \verb@YourName_ex4_10.2.pro@, to do the interactive part. 
+ ~\\
+~\\ 
+ \textbf{Exercise 11.0:} Interactive \emph{program} (like interactive \emph{script} in 10.1). \\
+   A good starting point would be to make a copy of your \verb@plot_Planck_ch10.pro@ file from 10.1. \\
+ \textbf{Exercise 12.0}: Using \verb@IF..THEN..ELSE@ blocks (in a \verb@FOR@ loop) \\
+ \textbf{Exercise 12.1}: Interactive programming example. \\
+ \textbf{Exercise 12.2}:\verb@ WHILE@ loop exercise \\
+ \textbf{Exercise 12.3:} Simple 1D dynamics with \verb@FOR@ loop \\
+ ~\\
+~\\ 
+ \textbf{Turn in} all \verb@.pro@ files you write for the exercise to the
+ \verb@assignment5@ directory: \\
+ \verb@/home/shared/astr2600/assignment5/YourName@  \\
+ \verb@YourName_plot_Planck_ch11.pro@  \\
+ \verb@YourName_piecewise.pro@  \\
+ \verb@YourName_plot_Plancks_ch12.pro@  \\
+ \verb@YourName_factorial.pro@  \\
+ \verb@YourName_spring1D.pro @\verb@    @\verb@(last version)@  \\
+ ~\\
+~\\ 
+ \textbf{Whuduzitdo?}  Do all the Whuduzitdo’s for Chapters 11 \& 12.  Filename: \verb@YourName_wdid5.txt@ 
+ ~\\
+~\\ 
+\textbf{Tutorial 13}  Complete the edits to \verb|eyeball.pro| and
+\verb|color_ref.pro| and create a pull request on github to turn them in.
+ ~\\
+~\\ 
+ \newpage \textbf{Graded Homework}\textbf{  }Due by \hmwkDueDate 
+ ~\\
+~\\ 
+ \textbf{Homework 12.0:} Interactive Planck program.  Filename: \verb@YourName_plot_Planck_hw12.0.pro@  \\
+ \textbf{Homework 12.1:} Interactive function plotter. Filename: \verb@YourName_plot_functions_hw12.1.pro@ \\ 
+ ~\\
+~\\ 
+ Three springs: These homeworks each deal with the same objective, modeling 3
+ springs.  The first is an expansion of Exercise 12.3.  Each of the subsequent
+ parts modifies the one before.  The resulting behavior should always be the
+ same, so you can check your program at each stage by making sure it is.  \\
+ \textbf{Homework}\textbf{  }\textbf{12.2:} Three springs: filename \verb@YourName_springs_hw12.2.pro@  \\
+ \textbf{Homework 12.3:} Use arrays of spring constants.   
+ There is no separate 12.3.  Just 12.3a, 12.3b, etc.  Each version should be in
+ its own file, e.g., \verb@YourName_springs_hw12.3a.pro@, etc. \\
+ \textbf{  }\textbf{Homework 12.3a:} Array of initial conditions, scalars for current conditions  \\
+ \textbf{  }\textbf{Homework 12.3b:} Array of initial conditions, arrays for current conditions  \\
+ \textbf{  }\textbf{Homework 12.3c:} Swap loops to put spring loop inside time loop  \\
+ \textbf{  }\textbf{Homework 12.3d:} Replace a spring loop with array arithmetic 
+   
+ ~\\
+~\\ 
+ \textbf{Turn in} all \verb@.pro@ files you write for the homework to the \verb@assignment5@ directory: \\
+ \verb@/home/shared/astr2600/assignment5/YourName/@ \\
+ \verb@YourName_plot_Planck_hw12.0.pro@ \\
+ \verb@YourName_plot_functions_hw12.1.pro@ \\
+ \verb@YourName_springs_hw12.2.pro@ \\
+ \verb@YourName_springs_hw12.3a.pro@ \\
+ \verb@YourName_springs_hw12.3b.pro@ \\
+ \verb@YourName_springs_hw12.3c.pro@ \\
+ \verb@YourName_springs_hw12.3d.pro@  \\
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ ~\\
+~\\ 
+ 
+ 
+ \end{spacing}
+ \end{document}
+ 

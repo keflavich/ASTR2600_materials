@@ -1,0 +1,412 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Assignment 1: Unix and IDL 1D Arrays and Basic Plotting}
+\newcommand{\hmwkDueDate}{September 6th, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+\emph{  Due by classtime \hmwkDueDate}
+\section{\textbf{Exercise:} }
+
+Ex 1.0: UNIX file \& directory management
+
+This has you create a bunch of directories in a given tree structure, create a
+file, copy it around and do some deletions.  You’ll need to use \texttt{cd} a lot and
+\texttt{pwd} to verify that you’re in the right directory.  I have you verify the
+results frequently by using \texttt{ls}.
+
+I show you exactly how to do many of the steps, but after a while I stop
+showing all the details because by then I think you should know how to do it
+without me showing you.  For each line that tells you to do something, you
+should read the next couple lines of instruction before doing it.  Those lines
+may show you how or just give a little further explanation.  (Don’t be in a
+hurry to follow the command “Cut off your foot” before reading the next line,
+which says “of rope”.)  Remember, UNIX does care about upper \& lower case
+letters.
+	
+Since this is UNIX and not IDL, there is no journal file record of this.  If
+you’re new to UNIX you should still go through these motions so that you have a
+feel for working with directories.  However, there is a \texttt{history} file.
+If you’re already familiar with UNIX, scan these steps to make sure you’re
+familiar with them all, and then make sure you set up the directory structure
+as described at the end.
+
+You will use the UNIX \texttt{mkdir} command to create the following directory
+tree structure in your home directory.
+\begin{verbatim}
+                       ~
+                       |
+                     ASTR2600
+                       |
+     __________________|__________________________________________
+    |            |            |            |            |         |
+assignment0  assignment1  assignment2  assignment3  assignment4  Oops
+                                                      __|___
+                                                     |      |
+                                                  Program  Data
+\end{verbatim}
+
+So from your home directory do this command:
+
+\verb|mkdir ASTR2600|
+
+Then change that to be the current directory:
+
+\verb|cd ASTR2600|
+
+Then create the assignment subdirectories in this directory:
+
+\begin{verbatim}
+mkdir assignment0
+mkdir assignment1
+mkdir assignment2
+mkdir assignment3
+mkdir assignment4
+\end{verbatim}
+
+(This goes faster if you use the up-arrow to retrieve the previous command and then edit the assignment number.)
+
+Use \texttt{ls} to verify that they are there:
+
+\verb|ls |
+
+(You should see the 5 directories listed.)
+
+Then change into the \verb|assignment4| directory:
+
+\verb|cd assignment4|
+
+Create the Program and Data directories in there.  (You should know how now.)
+Use \verb|ls| to verify that they are there.
+Return up to the ASTR directory:
+
+\verb|cd ..|
+
+Verify that you are in your ASTR2600 directory:
+
+\verb|pwd|
+
+Create the \verb|Oops| directory under the \verb|ASTR2600| directory.
+Use the gedit text editor to create a text file called “\verb|notes.txt|” in your \verb|ASTR2600/assignment1| directory.
+
+\begin{verbatim}
+cd assignment1
+gedit notes.txt &
+\end{verbatim}
+
+Put a couple (meaningless) lines of text in it and exit the editor.
+Use \verb|ls| to see that it is in that directory.
+Use \verb|cat| to print the file to the screen
+
+\verb|cat notes.txt|
+
+Use \verb|cp| (3 times) to copy this file to your \verb|ASTR2600/assignment0|, \verb|assignment2| and \verb|Oops| directories
+You are in the \verb|assignment1| directory so the destination is up to the parent (\verb|..|) and then down into the destination directory, e.g.
+
+\verb|cp notes.txt ../assignment0|
+
+Use the up arrow to retrieve this command and then edit the destination path for the other directories.
+Use \verb|ls| to verify that there are copies of this file in each directory.
+You can do this from the current \verb|assignment1| directory by using the parent (..) in the path,  but at this point you might want to \verb|cd| up to the \verb|ASTR2600| directory so that you don’t have to do that each time:
+
+\begin{verbatim}
+cd ..
+ls assignment0
+\end{verbatim}
+
+Use \verb|cat| to print out the version in the \verb|Oops| directory and see that it is the same.
+
+\verb|cat Oops/notes.txt|
+
+Use \verb|mv| to rename the original version of the file in the \verb|assignment1| directory to \verb|junk.txt|
+
+\begin{verbatim}
+cd assignment1
+mv notes.txt junk.txt
+\end{verbatim}
+
+Verify with \verb|ls|.
+
+Use \verb|rm| to remove the file from the \verb|assignment2| directory.  
+
+\begin{verbatim}
+cd ../assignment2
+rm notes.txt
+\end{verbatim}
+
+Verify with \verb|ls|.
+
+Attempt to use \verb|rmdir| to remove the \verb|Oops| directory  (It should not work)
+
+\begin{verbatim}
+cd ..
+rmdir Oops
+\end{verbatim}
+
+\verb|rmdir| will only remove empty directories.  Verify that it didn’t work with \verb|ls| 
+
+Use \verb|rm| to remove the copy of notes.txt from the \verb|Oops| directory.  
+
+\verb|rm Oops/notes.txt|
+
+\begin{tabbing}
+Verify with \verb|ls|. \\*
+Use \verb|rmdir| to remove the \verb|Oops| directory.  (Now it works because \verb|Oops| is empty) \\*
+Use \verb|ls| to verify. \\*
+Use \verb|rmdir| to try and remove the \verb|assignment4| directory.  (It should not work) \\*
+Use \verb|rm -r| to remove the \verb|assignment4| directory. \\*
+\end{tabbing}
+
+\verb|rm -r assignment4|
+
+The \verb|-r| stands for “recursive” and it means that \verb|rm| should be applied to each file \& directory under the one you’re trying to remove and any subdirectories under that, and any under those, etc.
+
+Verify that \verb|assignment4|  (and so also \verb|Program| and \verb|Data|) directories are gone.
+
+
+OK, that’s enough playing around with basic “files in directories” stuff.  Now we’ll do something useful:
+Use \verb|mv| to move your assignment 0 files (\verb|YourName_ex0.pro| and \verb|YourName_wdid0.txt|) from your home directory (\verb|~|) to your \verb|assignment0| directory.
+Remove the copy of \verb|notes.txt| from the \verb|assignment0| directory. 
+Use \verb|ls| to verify that your directory structure now looks like this:
+
+\begin{verbatim}
+                                   ~
+                                   |
+                               ASTR2600
+                 __________________|___________________
+                |            |            |            |
+           assignment0   assignment1  assignment2  assignment3
+                               /              \
+                   YourName_ex1.pro YourName_wdid0.txt
+\end{verbatim}
+
+
+From the ASTR2600 directory, use \verb|ls -l| to check the permissions on all your \verb|assignment#| directories.
+If necessary, change the permissions on all those directories so that only you,
+the “user” can read or execute them, i.e., take away r, w and x permissions
+from others (o) and group (g):
+
+\begin{verbatim}
+chmod o-rwx assignment*
+chmod g-rwx assignment*
+\end{verbatim}
+
+It is very important that you do this for these directories and for all future
+“\verb|assignment#|” directories that you create for this class.  This prevents others
+from copying your homework.  I will check periodically, to see that your
+directory permissions are correct.
+
+Use \texttt{ls -l} to check the permission of your files in your \texttt{assignment0} directory.
+If necessary, change the permission so that “others” can read the file, e.g.
+
+\verb|chmod o+r YourName_ex0.pro|
+
+This may sound contradictory, but this permission stays with the file when you copy it into my directory to turn it in.  If you don’t have the permissions set to give read access to “others”, then I can’t read it.  And I can’t grade it.  If your directory permissions are correct, then others can’t copy the files from your directory so your work is still secure.
+
+It is very important that you make sure that all files you turn in during the semester have read access for “others”.  If you find that your files seem to default to no read permission for others, let me know and I’ll show you how we can fix that.
+
+
+For the rest of the semester, you should always do your assignments from inside your corresponding assignment directory.  This means that starting with assignment 4, you’ll need to create new directories to hold those assignments.
+
+
+\section{IDL 1-dimensional Arrays and Basic Plotting}
+
+(As with all subsequent assignments, first \verb|cd| into the appropriate directory
+for the assignment.  In this case, your \verb|assignment1| directory.)  Get into IDL
+and type each courier font line exactly as it appears in the exercises.  You do
+not have to type the “comment” consisting of the semi-colon and all text after
+it.  Pay attention to the output.  It’s useful to type in your own comment
+labeling the exercise parts, e.g.,
+
+\verb|; Exercise 1.8|
+
+Open a journal file in your \verb|assignment1| directory called “\verb|YourName_ex1.pro|”
+
+Do the following exercises from the book:
+
+\begin{itemize}
+    \item Exercise 1.8: Basic array definition & arithmetic
+    \item Exercise 1.9: Basic plotting
+    \item Exercise 1.10:  Automatic “coordinate array” generation (fill array with index values)
+    \item Exercise 1.11:  Planck Blackbody curve
+\end{itemize}
+
+Close the journal file with:
+
+\verb|journal    ; you can close your exercise journal file now.  |
+
+
+
+
+
+Turn in (copy into \verb|/home/shared/astr2600/assignment1/YourName/|)
+Journal file of the exercise: \verb|YourName_ex1.pro|
+
+Reminder of how to turn in: In Linux (not IDL) type
+
+\verb|cp -p YourName_ex1.pro /home/shared/astr2600/assignment1/YourName/|
+
+As always, if you decided to break the exercise into multiple journal files, they all need separate filenames (including the exercise part, e.g. \verb|YourName_ex1_1.11.pro| and, of course, you need to turn in all files.
+
+
+
+\vspace{-5mm}
+\section{What does it do?}
+
+Using gedit, answer Whuduzitdo 1.8 through 1.10 in a file called \verb|YourName_wdid1.txt|.
+
+Reminder of how to start gedit: In Linux (not IDL) type
+
+\verb|gedit YourName_wdid1.txt &|
+
+When you are done, you can click the Save button to save the file.  You can then exit gedit by clicking on the X in the upper right corner or select Quit under the File menu.
+
+Turn in (copy into \verb|/home/shared/astr2600/assignment1/YourName/|)
+Text file containing the Whuduzitdo: \verb|YourName_wdid1.txt|
+
+Graded Homework:  Due by \hmwkDueDate
+
+\vspace{-5mm}
+\section{Homework 1.0  Planck Blackbody equation}
+Begin a new journal file called \verb|YourName_hw1.0.pro|
+
+Answer the questions in the homework by writing comments that will then show up in your journal file, e.g.,
+
+\begin{verbatim}
+; 1.0.0:  The overall area under the curve does sumpin’ sumpin’ as temperature
+;   increases
+\end{verbatim}
+
+Close the journal file.  
+
+
+Turn in (copy into \verb|/home/shared/astr2600/assignment1/YourName/|)
+journal files of the homework
+\verb|YourName_hw1.0.pro|
+
+
+
+\end{spacing}
+\end{document}
+

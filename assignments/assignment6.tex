@@ -1,0 +1,190 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+ %\documentclass[11pt,letterpaper,notitlepage]{article}
+ \documentclass{article}
+ % Change "article" to "report" to get rid of page number on title page
+ \usepackage{amsmath,amsfonts,amsthm,amssymb}
+ \usepackage{setspace}
+ \usepackage{listings}
+ \usepackage{Tabbing}
+ \usepackage{textcomp}
+ \usepackage{fancyhdr}
+ \usepackage{lastpage}
+ \usepackage{extramarks}
+ \usepackage{chngpage}
+ \usepackage{soul,color}
+ \usepackage{graphicx,float,wrapfig}
+ \usepackage{parskip}
+ \usepackage[compact]{titlesec}
+ \usepackage[utf8]{inputenc}
+ 
+ % In case you need to adjust margins:
+ \topmargin=-0.45in      %
+ \evensidemargin=0in     %
+ \oddsidemargin=0in      %
+ \textwidth=6.5in        %
+ \textheight=9.0in       %
+ \headsep=0.25in         %
+ 
+ % Homework Specific Information
+ \newcommand{\hmwkTitle}{Assignment 6: Procedures and functions, 2D dynamics}
+ \newcommand{\hmwkDueDate}{October 9th, 4:00 PM}
+ \newcommand{\hmwkClass}{ASTR 2600}
+ \newcommand{\hmwkClassTime}{4:00 PM T/Th}
+ \newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+ \newcommand{\hmwkAuthorName}{Adam Ginsburg}
+ 
+ % Setup the header and footer
+ \pagestyle{fancy}                                                       %
+ %\lhead{\hmwkAuthorName}                                                 %
+ \chead{\hmwkClass\: \hmwkTitle}  %
+ \rhead{\firstxmark}                                                     %
+ \lfoot{\lastxmark}                                                      %
+ \cfoot{}                                                                %
+ \rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+ \renewcommand\headrulewidth{0.4pt}                                      %
+ \renewcommand\footrulewidth{0.4pt}                                      %
+ 
+ % This is used to trace down (pin point) problems
+ % in latexing a document:
+ %\tracingall
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Some tools
+ \newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                     \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+ \newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1}{}\nobreak}%
+ 
+ \newlength{\labelLength}
+ \newcommand{\labelAnswer}[2]
+   {\settowidth{\labelLength}{#1}%
+    \addtolength{\labelLength}{0.25in}%
+    \changetext{}{-\labelLength}{}{}{}%
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+    \marginpar{\fbox{#1}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    \changetext{}{+\labelLength}{}{}{}}%
+ 
+ \setcounter{secnumdepth}{0}
+ \newcommand{\homeworkProblemName}{}%
+ \newcounter{homeworkProblemCounter}%
+ \newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+   {\stepcounter{homeworkProblemCounter}%
+    \renewcommand{\homeworkProblemName}{#1}%
+    \section{\homeworkProblemName}%
+    \enterProblemHeader{\homeworkProblemName}}%
+   {\exitProblemHeader{\homeworkProblemName}}%
+ 
+ \newcommand{\problemAnswer}[1]
+   {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+ 
+ \newcommand{\problemLAnswer}[1]
+   {\labelAnswer{\homeworkProblemName}{#1}}
+ 
+ \newcommand{\homeworkSectionName}{}%
+ \newlength{\homeworkSectionLabelLength}{}%
+ \newenvironment{homeworkSection}[1]%
+   {% We put this space here to make sure we're not connected to the above.
+    % Otherwise the changetext can do funny things to the other margin
+ 
+    \renewcommand{\homeworkSectionName}{#1}%
+    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+    \addtolength{\homeworkSectionLabelLength}{0.25in}%
+    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+    \subsection{\homeworkSectionName}%
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+   {\enterProblemHeader{\homeworkProblemName}%
+ 
+    % We put the blank space above in order to make sure this margin
+    % change doesn't happen too soon (otherwise \sectionAnswer's can
+    % get ugly about their \marginpar placement.
+    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+ 
+ \newcommand{\sectionAnswer}[1]
+   {% We put this space here to make sure we're disconnected from the previous
+    % passage
+ 
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+    \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+    \marginpar{\fbox{\homeworkSectionName}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    }%
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Make title
+ \title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+ \date{}
+ %\author{\textbf{\hmwkAuthorName}}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ \begin{document}
+ \begin{spacing}{1.0}
+ %\maketitle
+ \newpage
+ 
+ 
+ 
+ \section{\textbf{Exercise:} \emph{  Due by classtime \hmwkDueDate}}
+ 
+ \textbf{Exercise 13.0}: Filename \verb@yourName_plot_sinc.pro@.\\* 
+ Do the interactive part in Open a \emph{journal} file, \verb@yourName_ex13.0.pro@.\\* 
+ ~\\ 
+ \textbf{Exercise 13.1: }Filename \verb@yourName_swap.pro@.  \emph{Include all comments}\\* 
+ Do the interactive part in Open a \emph{journal} file, \verb@yourName_ex13.1.pro@.\\* 
+ ~\\ 
+ \textbf{Whuduzitdo?} for chapter 13.  Filename: \verb@yourName_wdid13.txt@\\* 
+ ~\\ 
+ \textbf{Turn in} to the directory   \verb@/home/shared/astr2600/assignment6/YourName/@\\* 
+ \verb@yourName_plot_sinc.pro@\\* 
+ \verb@yourName_ex13.0.pro@\\* 
+ \verb@yourName_swap.pro@\\* 
+ \verb@yourName_ex13.1.pro@\\* 
+ \verb@yourName_wdid13.txt@
+
+ \section{Homework 6: \emph{Due 11:59:59 pm Thursday, October 11th, 2012}}
+
+ \textbf{Homework 14.0:} Filename \verb@yourName_coordinateArray.pro@\\* 
+ Where you are asked to change the code (i.e., delete parts), you should
+ \verb|git commit| before making the change.
+ ~\\ 
+ \textbf{Homework 14.1:} Filename: \verb@yourName_planck.pro@\\* 
+ This file will contain a function, \verb@planck@, and a procedure called \verb@plot_Planck@ that will call it.\\* 
+ \verb@plot_Planck@ will also call your \verb@coordinateArray@ function from Homework 14.0.\\* 
+ That should mean compiling both files.  Don’t \emph{copy} the \verb@coordinateArray@ function into the file for this homework.\\* 
+ ~\\ 
+ \textbf{Homework 14.2:} Filename: \verb@yourName_twoD_2stars_HW14.2.pro@\\* 
+ Binary stars.  This HW synthesize many of the previous chapters. \\* 
+ ~\\ 
+ \textbf{Homework 14.3:} Filename: \verb@yourName_twoD_2stars_HW14.3.pro@\\* 
+ Modularize Homework 14.2.\\* 
+ ~\\ 
+ \textbf{Turn in} to the directory  \verb@ /home/shared/astr2600/assignment6/YourName/@\\* 
+ \emph{also} turn in on github:
+ \begin{lstlisting}
+     git add [filename.pro]
+     git commit -a
+     git push
+ \end{lstlisting}
+ \verb@yourName_coordinateArray.pro@\\* 
+ \verb@yourName_planck.pro@\\* 
+ \verb@yourName_planck10000K.jpg@\\* 
+ \verb@yourName_twoD_2stars_HW14.2.pro@\\* 
+ \verb@yourName_twoD_2stars_HW14.3.pro@
+
+ \section{Tutorial 14: Due 11:59:59 pm, October 11th 2012}
+ Turn in via github:\\
+ \verb|isthenumberbig.pro|\\
+ \verb|compare_values.pro|\\
+ \verb|test_conditionals.pro|\\
+ 
+ 
+ \end{spacing}
+ \end{document}
+ 

@@ -1,0 +1,131 @@
+% Macros, commands, definitions
+
+\newcommand{\mycomment}[1]{{\bf\it\color{red} #1}} % Use for bold in-tex comments.
+
+
+\newcommand{\clickerquestion}{[Clicker Question]}
+
+% Math definitions
+\newcommand{\abs}[1]{\ensuremath{\left| \mathbf{#1} \right|}}
+\newcommand{\real}[1]{\mathrm{Re}\left( #1 \right)} 
+\newcommand{\imag}[1]{\mathrm{Im}\left( #1 \right)} 
+\newcommand{\ftdt}{\frac{\widetilde{\Delta T}}{T}}
+%\newcommand{\exn}[1]{\left< #1 \right>} % expectation value.
+\newcommand{\exn}[1]{\mathrm{E}\left[ #1 \right]} % expectation value.
+\newcommand{\var}[1]{\mathrm{V}\left[ #1 \right]} % variance.
+\newcommand{\tr}[1]{\mathrm{Tr}\left[ #1 \right]} % trace.
+\newcommand{\uv}{\ensuremath{(u,v)}}
+\newcommand{\su}{\ensuremath{\mathcal{S}(u)}}
+\newcommand{\cl}{\ensuremath{\mathcal{C}_l}}
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\hour}{\ensuremath{^\mathrm{h}}}
+\newcommand{\e}{\ensuremath{\operatorname{e}}}
+\newcommand{\cov}[1]{\operatorname{COV}\left[ #1 \right]}
+\newcommand{\FT}[1]{\operatorname{FT}\left\{ #1 \right\}} % expectation value.
+\newcommand{\DFT}[1]{\operatorname{DFT}\left\{ #1 \right\}} % expectation value.
+
+%%%%%% AAS defs %%%%%%%%%%%
+\newcommand\fdg{\ensuremath{.\!\!^\circ}}
+\newcommand\degr{\ensuremath{^\circ}}
+\newcommand\arcmin{\mbox{$^\prime$}}% 
+\newcommand\arcsec{\mbox{$^{\prime\prime}$}}% 
+\newcommand\micron{\mbox{$\mu$m}}% 
+\newcommand\tablenotemark[1]{\rlap{$^{\mathrm #1}$}}% 
+\newcommand\tablenotetext[2]{\vspace{.5ex}{\footnotesize{\noindent\llap{$^{#1}$}#2\par}}} 
+
+
+\makeatletter
+\let\jnl@style=\rmfamily 
+\def\ref@jnl#1{{\jnl@style#1}}% 
+\newcommand\aj{\ref@jnl{AJ}}% 
+          % Astronomical Journal 
+\newcommand\araa{\ref@jnl{ARA\&A}}% 
+          % Annual Review of Astron and Astrophys 
+\newcommand\apj{\ref@jnl{ApJ}}% 
+          % Astrophysical Journal 
+\newcommand\apjl{\ref@jnl{ApJ}}% 
+          % Astrophysical Journal, Letters 
+\newcommand\apjs{\ref@jnl{ApJS}}% 
+          % Astrophysical Journal, Supplement 
+\newcommand\ao{\ref@jnl{Appl.~Opt.}}% 
+          % Applied Optics 
+\newcommand\apss{\ref@jnl{Ap\&SS}}% 
+          % Astrophysics and Space Science 
+\newcommand\aap{\ref@jnl{A\&A}}% 
+          % Astronomy and Astrophysics 
+\newcommand\aapr{\ref@jnl{A\&A~Rev.}}% 
+          % Astronomy and Astrophysics Reviews 
+\newcommand\aaps{\ref@jnl{A\&AS}}% 
+          % Astronomy and Astrophysics, Supplement 
+\newcommand\azh{\ref@jnl{AZh}}% 
+          % Astronomicheskii Zhurnal 
+\newcommand\baas{\ref@jnl{BAAS}}% 
+          % Bulletin of the AAS 
+\newcommand\jrasc{\ref@jnl{JRASC}}% 
+          % Journal of the RAS of Canada 
+\newcommand\memras{\ref@jnl{MmRAS}}% 
+          % Memoirs of the RAS 
+\newcommand\mnras{\ref@jnl{MNRAS}}% 
+          % Monthly Notices of the RAS 
+\newcommand\pra{\ref@jnl{Phys.~Rev.~A}}% 
+          % Physical Review A: General Physics 
+\newcommand\prb{\ref@jnl{Phys.~Rev.~B}}% 
+          % Physical Review B: Solid State 
+\newcommand\prc{\ref@jnl{Phys.~Rev.~C}}% 
+          % Physical Review C 
+\newcommand\prd{\ref@jnl{Phys.~Rev.~D}}% 
+          % Physical Review D 
+\newcommand\pre{\ref@jnl{Phys.~Rev.~E}}% 
+          % Physical Review E 
+\newcommand\prl{\ref@jnl{Phys.~Rev.~Lett.}}% 
+          % Physical Review Letters 
+\newcommand\pasp{\ref@jnl{PASP}}% 
+          % Publications of the ASP 
+\newcommand\pasj{\ref@jnl{PASJ}}% 
+          % Publications of the ASJ 
+\newcommand\qjras{\ref@jnl{QJRAS}}% 
+          % Quarterly Journal of the RAS 
+\newcommand\skytel{\ref@jnl{S\&T}}% 
+          % Sky and Telescope 
+\newcommand\solphys{\ref@jnl{Sol.~Phys.}}% 
+          % Solar Physics 
+\newcommand\sovast{\ref@jnl{Soviet~Ast.}}% 
+          % Soviet Astronomy 
+\newcommand\ssr{\ref@jnl{Space~Sci.~Rev.}}% 
+          % Space Science Reviews 
+\newcommand\zap{\ref@jnl{ZAp}}% 
+          % Zeitschrift fuer Astrophysik 
+\newcommand\nat{\ref@jnl{Nature}}% 
+          % Nature 
+\newcommand\iaucirc{\ref@jnl{IAU~Circ.}}% 
+          % IAU Cirulars 
+\newcommand\aplett{\ref@jnl{Astrophys.~Lett.}}% 
+          % Astrophysics Letters 
+\newcommand\apspr{\ref@jnl{Astrophys.~Space~Phys.~Res.}}% 
+          % Astrophysics Space Physics Research 
+\newcommand\bain{\ref@jnl{Bull.~Astron.~Inst.~Netherlands}}% 
+          % Bulletin Astronomical Institute of the Netherlands 
+\newcommand\fcp{\ref@jnl{Fund.~Cosmic~Phys.}}% 
+          % Fundamental Cosmic Physics 
+\newcommand\gca{\ref@jnl{Geochim.~Cosmochim.~Acta}}% 
+          % Geochimica Cosmochimica Acta 
+\newcommand\grl{\ref@jnl{Geophys.~Res.~Lett.}}% 
+          % Geophysics Research Letters 
+\newcommand\jcp{\ref@jnl{J.~Chem.~Phys.}}% 
+          % Journal of Chemical Physics 
+\newcommand\jgr{\ref@jnl{J.~Geophys.~Res.}}% 
+          % Journal of Geophysics Research 
+\newcommand\jqsrt{\ref@jnl{J.~Quant.~Spec.~Radiat.~Transf.}}% 
+          % Journal of Quantitiative Spectroscopy and Radiative Trasfer 
+\newcommand\memsai{\ref@jnl{Mem.~Soc.~Astron.~Italiana}}% 
+          % Mem. Societa Astronomica Italiana 
+\newcommand\nphysa{\ref@jnl{Nucl.~Phys.~A}}% 
+          % Nuclear Physics A 
+\newcommand\physrep{\ref@jnl{Phys.~Rep.}}% 
+          % Physics Reports 
+\newcommand\physscr{\ref@jnl{Phys.~Scr}}% 
+          % Physica Scripta 
+\newcommand\planss{\ref@jnl{Planet.~Space~Sci.}}% 
+          % Planetary Space Science 
+\newcommand\procspie{\ref@jnl{Proc.~SPIE}}% 
+          % Proceedings of the SPIE

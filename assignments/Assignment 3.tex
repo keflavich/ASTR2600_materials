@@ -1,0 +1,493 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Assignment 3: file reading, binary files, sort, where, Booleans
+}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{\textbf{Exercise:} \emph{  Due by classtime \hmwkDueDate}}
+
+
+\textbf{ASTR 2600 Assignment 3} ~ formatted printing, file printing,
+
+
+
+\textbf{Journal file\emph{s}:~}\verb|yourName\_ex3\_\#.\#.pro|~ where \#.\# is
+actually the number of the exercise the file begins with, e.g., 4.0.~
+There are a lot of parts to this exercise so you should split it into at
+least two different journal files.~ Rather than tell you where to split
+it up, I'll let you pick what feels convenient.~ The only requirement is
+that you make the split between book exercises, i.e., not in the middle
+of one.
+
+You should do this in your \textasciitilde{}/ASTR2600/assignment3/
+directory.
+
+
+\textbf{Exercise 4.0}: Optional parameter in plot, using max.
+
+\textbf{Exercise 5.0}: Play around with some formatted printing
+
+\textbf{Exercise 6.0}: Writing a text file.~ (Repeats last part of
+Exercise 5.0 but writes output to a file.)~
+
+This says to modify the file with a text editor.~ Use gedit for that.~
+(Reminder: Open another terminal window.~ At the UNIX prompt, cd into
+your assignment3 directory.~ Then run gedit by typing gedit
+powerTable.txt.~ This gets you running the gedit text editor, with the
+powerTable.txt file.)
+
+\textbf{Exercise 6.1}: Reading the text file created in Exercise 6.0.
+
+\textbf{Exercise 6.2}: Binary files
+
+This has you compare two versions of output.~ You may need to make your
+terminal window taller by resizing it with the mouse to see both
+printouts.
+
+It then has you ``use the operating system'' to compare the sizes of two
+files.~ Use ls --l in UNIX to see the sizes of the files.~ (Use a
+separate window).
+
+\textbf{}\\
+
+\textbf{Exercise 6.4 (Not in the book):} Saving and restoring an IDL
+save file.
+
+
+help ~ ~ ~ ~ ; Shows the list of variables IDL is currently aware of (if
+any)
+
+.reset\_session~ ; Tells IDL to forget all those variables (\& procs \&
+funcs)
+
+help~ ~ ~ ~ ~ ~ ; Verify that IDL has forgotten all those variables
+
+
+; create an array of x values from --10 to 10
+
+x = -10 + 20.*findgen(100)/99.
+
+y = sin(x) / x ~ ~ ~ ~ ~ ~ ~ ~ ~ ; sin(x)/x is called a ``sinc''
+function
+
+help ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; See that you now have x \& y arrays
+defined
+
+plot, x, y ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; Take a look at it
+
+
+; Save the x \& y variables in an IDL save file:
+
+save, x, y, filename=``sinc.idlsave''
+
+
+.reset\_session~ ~ ; Tell IDL to forget all about those
+
+help~ ~ ~ ~ ~ ~ ~ ; Verify that IDL has forgotten all those variables
+
+
+
+; restore the variables from the file
+
+restore, filename=``sinc.idlsave''
+
+help~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; See that IDL now knows x \& y arrays
+
+plot, x, y~ ~ ~ ~ ~ ~ ~ ~ ~ ; Plot them
+
+
+\textbf{}\\
+
+\textbf{Exercise 6.3}: Saving an image file. ~
+
+If you'd like, you can just restore the file from Exercise 6.4 instead
+of redefining x \& y arrays.
+
+You can view this jpg file by using the window file browser in Linux.~
+Work your way down to your ASTR2600/assignment3 directory and click on
+the yourName\_mySincPlot.jpg ~ ~ It should come up in an image viewing
+program.
+
+
+
+
+
+\textbf{Exercise 6.5 (Not in the book)}:~ Working with a file whose
+``endian'' convention is different.
+
+We have two data files, one with x values, the other with y values.
+
+Each contains data in a ``self-describing'' format.~ The first data in
+each file is a long integer that says how many floats follow it.~ The
+file then has that many floats.~ A convenient way to say this is ``It
+contains a long integer, N, followed by N floats.''
+
+The files are \textasciitilde{}andersdk/ASTR2600/assignment3/sinc\_x.dat
+and \textasciitilde{}andersdk/ASTR2600/assignment3/sinc\_y.dat
+
+We need to open both, read N for each, then read in the x and y values.
+
+Then plot, x, y
+
+
+; open BOTH data files
+
+; We'll do this using some string operators.
+
+; This is just to go through those motions. ~
+
+; We could just define the filenames in the open statements
+
+path = ``\textasciitilde{}andersdk/ASTR2600/assignment3/''~ ~ ~ ; the
+path is something the filenames share
+
+xfilename = path + ``sinc\_x.dat''~ ~ ~ ~ ; build the full filename with
+path
+
+yfilename = path + ``sinc\_y.dat''
+
+print, xfilename ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; verify that the filenames are
+right
+
+print, yfilename
+
+openr, xlun, xfilename, /get\_lun ~ ; Open the files.~ Notice that this
+LUN is xlun
+
+openr, ylun, yfilename, /get\_lun ~ ; and this LUN is ylun
+
+
+; Now read in nx and ny from the two files
+
+nx = 0L~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; ``declare'' nx and ny to be
+longs.
+
+ny = 0L~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; (It doesn't matter what actual
+value we use)
+
+readu, xlun, nx~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; read in the number of x values
+
+readu, ylun, ny~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; read in the number of y values
+
+~~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; we expect nx is equal to ny
+
+
+x = fltarr(nx) ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; create the array for x
+
+~~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; OOPS!~ Something's wrong!
+
+print, nx~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; check the nx value
+
+
+; It makes no sense that nx is negative.
+
+; This is our clue that the datafile is big-endian and we are
+little-endian
+
+; (or the other way around).~ Whichever case, we need to swap the bytes
+in nx
+
+
+nx = swap\_endian(nx)~ ~ ~ ~ ~ ; replaces nx with a byte-swapped version
+of nx
+
+print, nx ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; Does this value make more sense?
+
+print, ny ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ; verify that ny is similarly goofy
+
+ny = swap\_endian(ny)~ ~ ~ ~ ~ ; so also need to swap bytes for ny
+
+
+x = fltarr(nx)~ ~ ~ ~ ~ ~ ~ ; NOW we can create our arrays with sensible
+numbers
+
+y = fltarr(ny)
+
+readu, xlun, x~ ~ ~ ~ ~ ~ ~ ; Read in the actual arrays of numbers
+
+readu, ylun, y ~ ~ ~ ~ ~ ~ ~
+
+
+free\_lun, xlun~ ~ ~ ~ ~ ~ ~ ; We're done reading the files so we clos
+them
+
+free\_lun, ylun
+
+
+x = swap\_endian(x)~ ~ ~ ~ ~ ; x and y must ALSO be byte-swapped
+
+y = swap\_endian(y)
+
+
+plot, x, y~ ~ ~ ~ ~ ~ ~ ~ ~ ; plot a nice sinc function
+
+
+
+\textbf{Exercise 7.0}: A sorting exercise.
+
+\textbf{}\\
+
+\textbf{Exercise 7.1}: Comparisons \& Booleans.
+
+\textbf{}\\
+
+\textbf{Exercise 7.2}: Using where with comparisons \& Booleans.
+
+\textbf{Exercise 7.3}: Finding where the minimum is using where.
+
+You've now seen 3 ways to find a minimum (or maximum): Use the min \&
+max functions, use where, and compute the derivative and see where it
+crosses 0.
+
+
+
+
+
+\textbf{Turn in} (copy into
+\textasciitilde{}andersdk/ASTR2600/students/assignment3/yourName/)
+
+All journal files of the exercises, \verb|yourName\_ex3\_X.X.pro|
+
+testArray.txt~ ~ (These files do not have to have your name in their
+name.)
+
+testArray.dat
+
+JPEG image file from Exercise 6.3: yourName\_mySincPlot.jpg
+
+
+
+
+\textbf{Whuduzitdo:} All Whuduzitdo's from Chapters 4-7.
+
+\textbf{Graded Homework ~}Due by midnight the night of Monday, Feb 20,
+2012
+
+Do all of this in your ASTR2600/assignment3 directory
+
+
+\textbf{Homework 4.0:} Journal file: \verb|yourName\_hw4.0.pro|.~ Finding peak
+of Planck function using max.~
+
+\textbf{Homework 6.0:} Journal file: \verb|yourName\_hw6.0.pro|.~ Writing
+binary file.
+
+
+~You don't need to do Homeworks 6.1 \& 6.2 \& 6.3
+
+
+\textbf{Homework 6.4 (Not in book):} Journal file: \verb|yourName\_hw6.4.pro|
+
+In the directory \textasciitilde{}andersdk/ASTR2600/assignment3/ there
+is a file, plotData.dat
+
+~(That's not a typo: There is no ``students'' in the path.)
+
+It's a binary file containing a \emph{long} integer, say, N, followed by
+an array of N floats.
+
+Read this file and plot the array. ~
+
+(\emph{Don't} copy the file into your local directory and read that.~
+Include the full directory path in the filename when you open the file.~
+It's not always practical to make local copies of data files.~ You need
+to know how to read in files from other directories.)
+
+Since I don't give you an x array, you can assume evenly spaced values,
+so ``plot, y'' works.
+
+What is your guess as to the kind of function I used to generate it?~
+(Hint: Think math, not physics.)
+
+Write your response as an IDL comment so that it appears in your journal
+file, e.g. ~
+
+
+; I think it was another damn Planck function
+
+
+(Don't worry.~ It's OK to be wrong.)
+
+
+\textbf{Homework 7.1 (Not in book):} Journal file: \verb|yourName\_hw7.1.pro|
+
+In the \textasciitilde{}andersdk/ASTR2600/assignment3 directory there
+are two files: lif2bwave.dat and lif2bflux.dat.~ These are binary files
+containing ultraviolet spectra data from a star.
+
+lif2bwave.dat contains the wavelengths in angstroms.
+
+lif2bflux.dat contains the flux in ergs/cm\textsuperscript{2}
+
+The format of these binary files is a long integer, N, followed by N
+floats.
+
+a) Read these files in and plot the flux vs. wavelength.~ (Again, don't
+make local copies of the files.~ Read them in from where they sit.)
+
+~ Save an image of this plot as \textbf{yourName\_fullSpectrum.jpg}
+
+b) The plot has a double peak near 990 angstroms. ~
+
+~ Plot about a 5-angstrom range roughly centered on this double peak so
+that we see it clearly.
+
+~ (Use the where function to select the portions of the wave and flux
+arrays that fit this.~ This is like ``zooming in'' on that part of the
+spectrum.)
+
+~ Save an image of this plot as \textbf{yourName\_doublePeak.jpg}
+
+
+\textbf{Turn in} (copy into
+\textasciitilde{}andersdk/ASTR2600/students/assignment3/yourName/)
+
+Journal files of the homework:
+
+\verb|yourName\_hw4.0.pro|
+
+\verb|yourName\_hw6.0.pro|
+
+\verb|yourName\_hw6.4.pro|~
+
+\verb|yourName\_hw7.1.pro|~
+
+Image files:\textbf{~}
+
+yourName\_fullSpectrum.jpg
+
+yourName\_doublePeak.jpg
+
+
+
+
+\end{spacing}
+\end{document}
+

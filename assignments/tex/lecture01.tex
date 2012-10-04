@@ -1,0 +1,137 @@
+\documentclass[12pt]{report}
+\usepackage{nwh_lecture}
+\usepackage{graphicx}
+%\usepackage{graphics}
+\usepackage{color}
+%\usepackage{cite}      % bibliographic sitations
+\usepackage{natbib}
+%\citestyle{aa}
+%\usepackage{floatflt}
+\graphicspath{{figures/}}
+\DeclareGraphicsExtensions{.pdf, .png}
+
+\input{mymacros}
+
+
+\begin{document}
+
+\setcounter{chapter}{0}
+
+\chapter{Course Overview}
+
+
+Wed, 18 Jan 2012
+
+%Reading for next class: Wall \& Jenkins, Ch. 1.
+
+Today:
+\begin{itemize}
+\item Course Overview
+  \begin{itemize}
+  \item Course goals
+    
+  \item Syllabus overview
+    
+  \item My expectations and teaching philosophy
+  \end{itemize}
+\item Concept inventory (last 20 minutes of class)
+
+\end{itemize}
+
+\section{Course Overview}
+
+Introductions and names
+
+Course Goals:
+\begin{itemize}
+\item Understand principles and limitations of statistical inference and
+  data analysis techniques
+
+\item Understand the fundamentals of how instruments at multiple wavelengths
+  collect and affect data
+  
+\item Derive physical measurements and uncertainties with hands-on analysis
+  of real datasets. 
+\end{itemize}
+
+Course content and timeline: syllabus review.
+
+Suggestions on topics relevant to your research are welcome.
+
+\section{Introduction to Astronomical Statistics}
+
+Motivation: Why is statistics important?
+\begin{itemize}
+\item Any observational science is one of probabilities.
+  
+\item Statistics is particularly important in astronomy, a data starved
+  science:
+  \begin{itemize}
+  \item Observations \& instruments are pushed to the limits of
+    detectability
+    
+  \item Small sample sizes, repeating the experiment not possible
+    
+  \item ``Cosmic variance'' --- we live in the one realization of the
+    observable universe
+  \end{itemize}
+\item Examples of statistical inference in astronomy:
+  \begin{itemize}
+  \item Source detection (e.g, optical counterpart of a GRB)
+    
+  \item Significance of spectral features
+    
+  \item Statistical characterization of CMB temperature fluctuations
+    
+  \item Tests of correlations
+    \begin{itemize}
+    \item Hertzprung-Russell diagram
+      
+    \item Host galaxy characteristics as predictors for the presence of
+      masers
+      
+    \item Hubble diagram
+    \end{itemize}
+  \item Hypothesis testing
+    \begin{itemize}
+    \item Isotropy of the universe
+      
+    \item Physical association of objects
+      
+    \item GRBs: galactic or extragalactic origin?
+    \end{itemize}
+  \item Model parameter estimation
+    \begin{itemize}
+    \item Estimating $\Omega_0$ from CMB measurements
+      
+    \item Dark matter distribution in galaxy halos
+      
+    \item Molecular abundance ratios in extragalactic clouds
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+In addition, statistics are ubiquitous in the astronomical literature and in
+many other fields. They are used and abused frequently.
+
+\emph{$\Rightarrow$ We must understand statistics to interpret results (ours
+  and others), and to guard against naive belief in statistically questionable
+  results. }
+
+Examples of bad statistics:
+\begin{itemize}
+\item Medical study reports: drug is ineffective, \emph{except} in a small
+  subpopulation.
+  
+\item Political race poll results: one candidate is ``ahead'' by 2 points,
+  although only 1000 people are polled.
+  
+\item Astronomy: a statistically significant result is claimed, but
+  systematic uncertainties are not accounted for.
+\end{itemize}
+
+[Concept Inventory]
+
+\bibliographystyle{unsrt}
+\bibliography{nwh}
+
+\end{document}

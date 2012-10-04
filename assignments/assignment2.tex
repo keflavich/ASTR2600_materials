@@ -1,0 +1,203 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+ %\documentclass[11pt,letterpaper,notitlepage]{article}
+ \documentclass{article}
+ % Change "article" to "report" to get rid of page number on title page
+ \usepackage{amsmath,amsfonts,amsthm,amssymb}
+ \usepackage{setspace}
+ \usepackage{listings}
+ \usepackage{Tabbing}
+ \usepackage{textcomp}
+ \usepackage{fancyhdr}
+ \usepackage{lastpage}
+ \usepackage{extramarks}
+ \usepackage{chngpage}
+ \usepackage{soul,color}
+ \usepackage{graphicx,float,wrapfig}
+ \usepackage{parskip}
+ \usepackage[utf8]{inputenc}
+ 
+ % In case you need to adjust margins:
+ \topmargin=-0.45in      %
+ \evensidemargin=0in     %
+ \oddsidemargin=0in      %
+ \textwidth=6.5in        %
+ \textheight=9.0in       %
+ \headsep=0.25in         %
+ 
+ % Homework Specific Information
+ \newcommand{\hmwkTitle}{Assignment 2: Spring 2012}
+ \newcommand{\exDueDate}{September 11th, 4:00 PM}
+ \newcommand{\hmwkDueDate}{September 13th, 11:59:59 PM}
+ \newcommand{\hmwkClass}{ASTR 2600}
+ \newcommand{\hmwkClassTime}{4:00 PM T/Th}
+ \newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+ \newcommand{\hmwkAuthorName}{Adam Ginsburg}
+ 
+ % Setup the header and footer
+ \pagestyle{fancy}                                                       %
+ %\lhead{\hmwkAuthorName}                                                 %
+ \chead{\hmwkClass\: \hmwkTitle}  %
+ \rhead{\firstxmark}                                                     %
+ \lfoot{\lastxmark}                                                      %
+ \cfoot{}                                                                %
+ \rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+ \renewcommand\headrulewidth{0.4pt}                                      %
+ \renewcommand\footrulewidth{0.4pt}                                      %
+ 
+ \usepackage[utf8]{inputenc}
+ \usepackage[unicode=true]{hyperref}
+ \hypersetup{breaklinks=true,
+             bookmarks=true,
+             pdfauthor={},
+             pdftitle={},
+             colorlinks=true,
+             urlcolor=blue,
+             linkcolor=magenta,
+             pdfborder={0 0 0}}
+ 
+ % This is used to trace down (pin point) problems
+ % in latexing a document:
+ %\tracingall
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Some tools
+ \newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                     \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+ \newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1}{}\nobreak}%
+ 
+ \newlength{\labelLength}
+ \newcommand{\labelAnswer}[2]
+   {\settowidth{\labelLength}{#1}%
+    \addtolength{\labelLength}{0.25in}%
+    \changetext{}{-\labelLength}{}{}{}%
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+    \marginpar{\fbox{#1}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    \changetext{}{+\labelLength}{}{}{}}%
+ 
+ \setcounter{secnumdepth}{0}
+ \newcommand{\homeworkProblemName}{}%
+ \newcounter{homeworkProblemCounter}%
+ \newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+   {\stepcounter{homeworkProblemCounter}%
+    \renewcommand{\homeworkProblemName}{#1}%
+    \section{\homeworkProblemName}%
+    \enterProblemHeader{\homeworkProblemName}}%
+   {\exitProblemHeader{\homeworkProblemName}}%
+ 
+ \newcommand{\problemAnswer}[1]
+   {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+ 
+ \newcommand{\problemLAnswer}[1]
+   {\labelAnswer{\homeworkProblemName}{#1}}
+ 
+ \newcommand{\homeworkSectionName}{}%
+ \newlength{\homeworkSectionLabelLength}{}%
+ \newenvironment{homeworkSection}[1]%
+   {% We put this space here to make sure we're not connected to the above.
+    % Otherwise the changetext can do funny things to the other margin
+ 
+    \renewcommand{\homeworkSectionName}{#1}%
+    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+    \addtolength{\homeworkSectionLabelLength}{0.25in}%
+    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+    \subsection{\homeworkSectionName}%
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+   {\enterProblemHeader{\homeworkProblemName}%
+ 
+    % We put the blank space above in order to make sure this margin
+    % change doesn't happen too soon (otherwise \sectionAnswer's can
+    % get ugly about their \marginpar placement.
+    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+ 
+ \newcommand{\sectionAnswer}[1]
+   {% We put this space here to make sure we're disconnected from the previous
+    % passage
+ 
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+    \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+    \marginpar{\fbox{\homeworkSectionName}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    }%
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Make title
+ \title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+ \date{}
+ %\author{\textbf{\hmwkAuthorName}}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ \begin{document}
+ \begin{spacing}{1.0}
+ %\maketitle
+ \newpage
+ 
+ 
+ 
+ \section{\textbf{Exercise:} \emph{  Due by classtime \exDueDate}}
+ 
+  IDL data types, advanced array usage, coordinate arrays, numerical integration\\* 
+ ~\\ 
+ ~\\ 
+ \textrm{\textrm{\textbf{Journal file:}}\textrm{\textbf{  }}}\verb@YourName_ex2.pro@\textrm{ }\textrm{  }\textrm{(in your }\verb@~/ASTR2600/assignment2/@\textrm{ directory)}\\* 
+ ~\\ 
+ \textbf{Exercise 2.0} Integer Data types \\* 
+ \textbf{Exercise 2.1:} Floating point data types\\* 
+ \textbf{Exercise 2.2:} String data type \& \verb@string@ function\\* 
+ ~\\ 
+ \textbf{Exercise 3.0:}  Array creation and element access\\* 
+ \textbf{Exercise 3.1:} Array arithmetic, array functions, Vectors with Arrays\\* 
+ \textbf{Exercise 3.2:} Rescaling a Coordinate Array\\* 
+ \textbf{Exercise 3.3:} Random numbers to simulate experimental data\\* 
+ \textbf{Exercise 3.4:} Numerical derivative from finite difference\\* 
+ \textbf{Exercise 3.5:} Numerical integration of polynomial from x = -2. to 7. using array operations\\* 
+ ~\\ 
+ \textrm{\textrm{\textbf{Turn in}}}\textrm{ (copy into }\verb@/home/shared/astr2600/assignment2/YourName/@\textrm{):}\\* 
+ Journal file of the exercise, \verb@YourName_ex2.pro@\\* 
+ ~\\ 
+ ~\\ 
+ ~\\ 
+ Answer all Whuduzitdos from Chapters 2 \& 3 in a file called \verb@YourName_wdid2.txt@.\\* 
+ ~\\ 
+ \textrm{\textrm{\textbf{Turn in}}}\textrm{ (copy into }\verb@/home/shared/astr2600/assignment2/YourName/@\textrm{)}\\* 
+ Text file containing the Whuduzitdos:\verb@ YourName_wdid2.txt@\\* 
+ ~\\ 
+ (you can also hand in handwritten paper copies)
+ ~\\ 
+ ~\\ 
+ \newpage \textbf{Graded Homework}\textbf{    }\textbf{Due by \hmwkDueDate}\\* 
+ ~\\ 
+ New journal files for each part.  \emph{Be careful to get the filenames right so you don’t overwrite!}\\* 
+ That’s the normal process.\\* 
+ ~\\ 
+ \textrm{\textrm{\textbf{Homework 3.0:}}}\textrm{  }\textrm{Journal file: }\verb@assignment2/YourName_hw3.0.pro@\\* 
+ \textrm{\textrm{\textbf{Homework 3.1:}}}\textrm{  }\textrm{Journal file: }\verb@assignment2/YourName_hw3.1.pro@\\* 
+ \textrm{\textrm{\textbf{Homework 3.2:}}}\textrm{  }\textrm{Journal file: }\verb@assignment2/YourName_hw3.2.pro@\\* 
+   Answer the questions as comments.\\* 
+ \textrm{\textrm{\textbf{Homework 3.3:}}}\textrm{  }\textrm{Journal file: }\verb@Assignment2/YourName_hw3.3.pro@\\* 
+ ~\\ 
+ \textrm{\textrm{\textbf{Turn in}}}\textrm{ (copy into }\verb@/home/shared/astr2600/assignment2/YourName/@\textrm{:}\\* 
+ Journal files of the homework:\\* 
+ \verb@YourName_hw3.0.pro@\\* 
+ \verb@YourName_hw3.1.pro@\\* 
+ \verb@YourName_hw3.2.pro@\\* 
+ \verb@YourName_hw3.3.pro@\\* 
+ ~\\ 
+ Note that the filenames have homework numbers of \verb@3@ but the turn-in directory is \verb@assignment2@.\\* 
+ (this is because the \verb|3| refers to the chapter number, not the assignment number)
+ ~\\ 
+ ~\\ 
+ ~\\ 
+ 
+ 
+ \end{spacing}
+ \end{document}
+ 

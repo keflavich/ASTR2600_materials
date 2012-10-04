@@ -1,0 +1,241 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Assignment 0:   Basic interactive python math}
+\newcommand{\hmwkDueDate}{September 4th, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+\section{\textbf{Exercise:} \emph{  Due by classtime \hmwkDueDate}}
+\par
+
+\noindent Do this in your home login directory in Unix.
+
+\noindent Run ipython and type each courier font line exactly as it appears
+below.  You do not have to type the “comment” consisting of the semi-colon and
+all text after it.  Pay attention to the output.  Each line illustrates some
+different behavior.
+
+\noindent The first thing you will do, of course, is open a terminal window and run ipython by typing
+
+\texttt{ipython}
+
+at the Linux prompt.  Now you’re running ipython and you should see the ipython prompt.
+
+Unlike IDL, python does not have `journaling' - instead, each ipython session
+will automatically log commands and output.  Your commands will be logged in a
+file called \verb|ipython_log_2012-08-23.py|, although the date will be
+replaced with the date you started the interactive session.
+
+There is another way to run ipython using something called a `notebook'.  If
+you start ipython with the command \verb|ipython notebook --pylab &|, a new tab
+will pop open in your browser with buttons to make a \verb|New Notebook| and
+open your saved notebooks.  This is the preferred method for using ipython in
+this class, as it makes it very easy to record your work and all the figures
+you make along the way.
+
+Now proceed with these exercises from the book:
+
+\begin{itemize}
+    \item Exercise 1.0 Basic arithmetic
+    \item Exercise 1.1 Basic use of variables
+    \item Exercise 1.2 Operator precedence
+    \item Exercise 1.3 String arithmetic
+    \item Exercise 1.4 Math functions
+    \item Exercise 1.5 Equations
+    \item Exercise 1.6 A good physics-based complicated equation, the Planck black-body curve
+    \item Exercise 1.7 Modifying a variable
+\end{itemize}
+
+Before each exercise, type a comment or note that labels the exercise.  
+Comments must be preceded by the \verb|#| symbol, e.g.
+
+\texttt{# Exercise 1.2}
+
+In the Notebook, comments can be added by creating ``Markdown'' cells
+(``markdown'' indicates that you can write in special notation if you want to
+write equations).
+
+Remember to save your notebook frequently.
+
+When you are done with ipython, you exit it with \texttt{exit()} or close the
+ipython notebook window (after saving!).
+
+If for some reason you do not finish all the exercises in one sitting, you can
+close the notebook file and then, later, reopen it and continue working. 
+
+
+\section{\textbf{What does it do?} }
+{\it This section describes how to edit a .txt file for the ``What does it do?'' 
+assignment; you are allowed to include the ``What does it do?'' component in the
+ipython notebook if you prefer.}
+
+From the terminal window Linux prompt, run the \texttt{gedit} text editor on a
+file named \texttt{YourName\_wdid0.txt}.  To do this, at the Linux prompt, type
+the following:
+
+\texttt{gedit YourName\_wdid0.txt \&}
+
+(I’ll explain the “\texttt{\&}”, called an “ampersand”, later in the semester.)
+\texttt{gedit} is a typical text editor similar in principle to word processors
+you’ve used.  Don’t use a word processor like MS Word to do this.  You need to
+learn to use the text editor in Linux\footnote{You can use \texttt{vi} or
+\texttt{emacs} if you want.  I'll help you with \texttt{vi}, but not with
+\texttt{emacs}}.   This will open the new (or existing)
+file allowing you to edit it.  
+
+In this file, type your answers to the \emph{What does it do?} 1.0 through 1.7.
+If there is no explicit question, then the implied question is “What does it
+do?”, e.g., if the last statement is a print statement, “What does it print?”
+
+When you are done, use the \texttt{gedit} menus to save the file and quit the editor.
+
+If you do not finish the \emph{What does it do?} in one sitting, you can save
+the file and quit.  Then, when you are ready to finish it, you can edit the
+same file (type the same command).  This will allow you to append the later
+answers.  You’ll never need to turn in \emph{What does it do?}’s in multiple
+pieces.
+
+
+\section{Turn in}
+copy into \texttt{\textasciitilde ginsbura/ASTR2600/students/assignment0/YourName/}:
+\begin{tabbing}
+Notebook file of the exercise, \texttt{YourName\_ex0.ipynb} \\
+\emph{What does it do?} text file: \texttt{YourName\_wdid0.txt}
+\end{tabbing}
+
+To do this, in Unix, type
+
+\begin{tabbing}
+\texttt{cp -p YourName\_ex0.ipynb \textasciitilde ginsbura/ASTR2600/students/assignment0/yourName/} \\
+\texttt{cp -p YourName\_wdid0.txt \textasciitilde ginsbura/ASTR2600/students/assignment0/yourName/}
+\end{tabbing}
+
+There is no Graded Homework for Assignment 0.
+(This is why I let you have a week to do the exercise \& \emph{What does it do?}.)
+
+\end{spacing}
+\end{document}

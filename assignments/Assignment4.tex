@@ -1,0 +1,240 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+ %\documentclass[11pt,letterpaper,notitlepage]{article}
+ \documentclass{article}
+ % Change "article" to "report" to get rid of page number on title page
+ \usepackage{amsmath,amsfonts,amsthm,amssymb}
+ \usepackage{setspace}
+ \usepackage{listings}
+ \usepackage{Tabbing}
+ \usepackage{textcomp}
+ \usepackage{fancyhdr}
+ \usepackage{lastpage}
+ \usepackage{extramarks}
+ \usepackage{chngpage}
+ \usepackage{soul,color}
+ \usepackage{graphicx,float,wrapfig}
+ \usepackage{parskip}
+ \usepackage[utf8]{inputenc}
+ 
+ % In case you need to adjust margins:
+ \topmargin=-0.45in      %
+ \evensidemargin=0in     %
+ \oddsidemargin=0in      %
+ \textwidth=6.5in        %
+ \textheight=9.0in       %
+ \headsep=0.25in         %
+ 
+ % Homework Specific Information
+ \newcommand{\hmwkTitle}{Assignment 4: Graphics, color, scripts}
+ \newcommand{\hmwkDueDate}{Wednesday, September 26th 4:00 PM}
+ \newcommand{\hmwkClass}{ASTR 2600}
+ \newcommand{\hmwkClassTime}{4:00 PM T/Th}
+ \newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+ \newcommand{\hmwkAuthorName}{Dewey Anderson}
+ 
+ % Setup the header and footer
+ \pagestyle{fancy}                                                       %
+ %\lhead{\hmwkAuthorName}                                                 %
+ \chead{\hmwkClass\: \hmwkTitle}  %
+ \rhead{\firstxmark}                                                     %
+ \lfoot{\lastxmark}                                                      %
+ \cfoot{}                                                                %
+ \rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+ \renewcommand\headrulewidth{0.4pt}                                      %
+ \renewcommand\footrulewidth{0.4pt}                                      %
+ 
+ % This is used to trace down (pin point) problems
+ % in latexing a document:
+ %\tracingall
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Some tools
+ \newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                     \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+ \newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1}{}\nobreak}%
+ 
+ \newlength{\labelLength}
+ \newcommand{\labelAnswer}[2]
+   {\settowidth{\labelLength}{#1}%
+    \addtolength{\labelLength}{0.25in}%
+    \changetext{}{-\labelLength}{}{}{}%
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+    \marginpar{\fbox{#1}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    \changetext{}{+\labelLength}{}{}{}}%
+ 
+ \setcounter{secnumdepth}{0}
+ \newcommand{\homeworkProblemName}{}%
+ \newcounter{homeworkProblemCounter}%
+ \newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+   {\stepcounter{homeworkProblemCounter}%
+    \renewcommand{\homeworkProblemName}{#1}%
+    \section{\homeworkProblemName}%
+    \enterProblemHeader{\homeworkProblemName}}%
+   {\exitProblemHeader{\homeworkProblemName}}%
+ 
+ \newcommand{\problemAnswer}[1]
+   {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+ 
+ \newcommand{\problemLAnswer}[1]
+   {\labelAnswer{\homeworkProblemName}{#1}}
+ 
+ \newcommand{\homeworkSectionName}{}%
+ \newlength{\homeworkSectionLabelLength}{}%
+ \newenvironment{homeworkSection}[1]%
+   {% We put this space here to make sure we're not connected to the above.
+    % Otherwise the changetext can do funny things to the other margin
+ 
+    \renewcommand{\homeworkSectionName}{#1}%
+    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+    \addtolength{\homeworkSectionLabelLength}{0.25in}%
+    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+    \subsection{\homeworkSectionName}%
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+   {\enterProblemHeader{\homeworkProblemName}%
+ 
+    % We put the blank space above in order to make sure this margin
+    % change doesn't happen too soon (otherwise \sectionAnswer's can
+    % get ugly about their \marginpar placement.
+    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+ 
+ \newcommand{\sectionAnswer}[1]
+   {% We put this space here to make sure we're disconnected from the previous
+    % passage
+ 
+    \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+    \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+    \marginpar{\fbox{\homeworkSectionName}}%
+ 
+    % We put the blank space above in order to make sure this
+    % \marginpar gets correctly placed.
+    }%
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Make title
+ \title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+ \date{}
+ %\author{\textbf{\hmwkAuthorName}}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ \begin{document}
+ \begin{spacing}{1.0}
+ %\maketitle
+ \newpage
+ 
+ 
+ 
+ \section{\textbf{Exercise:} \emph{  Due by \hmwkDueDate}}
+ 
+ \\ 
+  \par \\ 
+  \textbf{Exercise} :   Due by class time Wednesday, Feb 22, 2012 \\ 
+  \par \\ 
+  \verb|Journal file:| \textbf{YourName\_ex4.pro} (in your \verb|~/ASTR2600/assignment4/ |directory)\\ 
+  (Create an assignment4 subdirectory under your ASTR2600 directory if necessary.) \\ 
+  Exercises from Chapter 8 and Chapter 9 involve journal files.   This is the last assignment with long journal files as exercises.   It’s probably a good idea to break this up into multiple journal files as described in Assignment 3. \\ 
+  \par \\ 
+  \textbf{Exercise 8.0} : Experimenting with various plot keywords \\ 
+  \textbf{Exercise 8.1:}  Title \&  \verb|linestyle|  keywords, using  \verb|xyouts|  for legends \\ 
+  \textbf{Exercise 8.2:}  A little zooming \\ 
+  \textbf{Exercise 8.3:}  2D plotting \\ 
+  \textbf{Exercise 8.4:}  Multiple plots \\ 
+  \textbf{Exercise 9.0:}  Playing with color definitions. \\ 
+  \textbf{Exercise 9.1} : Like Exercise 8.1 but with colors \\ 
+  %(You don’t have to do Exercise 9.2.) \\ 
+  \par \\ 
+  % For Chapter 10 exercises you create script files and execute them instead of creating journal files.   Be sure to put  \verb|YourName_|  on the beginning of the file name specified for the script. \\ 
+  % But after creating your script file, you’ll actually  \emph{use}  it interactively.   You  \emph{open a journal file}  to do the interactive part. \\ 
+  % You can use  \verb|gedit|  as the text editor to create the scripts. \\ 
+  % \par \\ 
+  % \textbf{Exercise 10.0} : Creating a script file to set the values of physical constants \& units \\ 
+  % Open a journal file,  \verb|YourName_ex4_10.0.pro| , to do the interactive part. \\ 
+  % \textbf{Exercise 10.1:}  Creating an interactive script file \\ 
+  % Open a journal file,  \verb|YourName_ex4_10.1.pro| , to do the interactive part. \\ 
+  % \textbf{Exercise 10.2:}  Contour plotting using a script \\ 
+  % Last line on page 22 says you should name the JPEG file as  \verb|ex10_2_plot.jpg| .   You should, of course, stick  \verb|YourName_|  on the front of that.) \\ 
+  % Open a journal file,  \verb|YourName_ex4_10.2.pro| , to do the interactive part. \\ 
+  \par \\ 
+  \par \\ 
+  \par \\ 
+  \textbf{Whuduzitdo?}   All Whuduzitdo’s from Chapters 8 and 9 % \& 10. \\ 
+  \par \\ 
+  \par \\ 
+  Turn in to \verb|/home/shared/astr2600/assignment4/YourName/|) \\ 
+  \textbf{Journal files}  of the exercises from Chapters 8 \& 9. \\ 
+  Your IDL script files:   \\ 
+  \textbf{YourName\_physicalConstants.pro} \\ 
+  %\textbf{YourName\_plot\_Planck\_ch10.pro} \\ 
+  \textbf{YourName\_sinSinContour.pro} \\ 
+  %Your JPG file from Exercise 10.2,  \verb|YourName\_ex10_2_plot.jpg| \\ 
+  \par \\ 
+  \par \\ 
+  \textbf{Graded Homework} Due by midnight the night of Friday, September 28, 2012    \\ 
+  (Readability is 10\% of your grade) \\ 
+  Homeworks 8.2 \& 8.3 can be done by writing  \emph{script}  files instead of
+  interactively and creating a journal file. \\ 
+  \par \\ 
+  \textbf{Homework 8.2:}  Script file name:  \verb|YourName_sinSinGrid.pro| \\ 
+  \textbf{Homework 8.3:}  Script file name:  \verb|YourName_PlanckShaded.pro| \\ 
+  \par \\ 
+  \textbf{Homework 8.4 (Not in book):}  Script file,
+  \verb|YourName_plot_spectrum.pro|  that does the following: \\ 
+  Read in the data files used in Homework 6.5 in assignment 3.   (Read them
+  from my  \verb|assignment3|  directory (include path).   Do not copy them
+  into yours.) \\ 
+  Draw the following plots and save them into JPEG files as described.   The
+  plots should all have  \emph{appropriate x \& y axes labels and an
+  appropriate title} . \\ 
+  If the yaxis label appears clipped off the left edge of the window, use the
+  \verb|xmargin|  keyword to remedy this.   (Read about it in the book or
+  online documentation.) \\ 
+  a) Plot the flux vs. wavelength.   (Déjà vu.   You did this in Homework 6.4) \\ 
+  Save an image of this plot as  \verb|YourName_fullSpectrum.jpg| \\ 
+  b) The plot has a double peak near 990 angstroms.    \\ 
+  Edit your script to use the  \verb|xrange|  keyword (rather than the
+  \verb|where|  function used in Homework 6.4) to plot about a 5-angstrom range
+  roughly centered on this double peak so that we see it clearly.   (This is
+  like “zooming in” on that part of the spectrum.) \\ 
+  Save an image of this plot as  \verb|YourName_doublePeak.jpg| \\ 
+  c) The plot has a large, thin peak near 1026 angstroms. \\ 
+  Edit the script to use the range keywords to plot about a 1-angstrom range
+  roughly centered on this double peak.   This plot should also have a flux
+  range of about  \verb|1e-12|  flux units so that we can clearly see the
+  structure at this peak.   (This means setting a  \verb|yrange|  as well.) \\ 
+  Save an image of this plot as  \verb|YourName_tallPeak.jpg| . \\ 
+  \par \\ 
+  \textbf{Homework 9.2 (Not in book)} : Create a script file  \verb|YourName_solarTemp.pro|  that does the following: \\ 
+  Read a binary 500 \verb|x| 500 array of floats from the file: \\ 
+  \verb|/home/shared/astr2600/data/temperature_iy45.dat|
+  The format is simply the array of floats.   \\ 
+    There is no first-number “header” with the array size.   I’m telling you the size.   It’s 500  \verb|x|  500. \\ 
+  Display that array as a monochrome  \emph{image} \\ 
+  Open another IDL plotting window (with the “\verb|window|” procedure) \\ 
+  Plot the data as a color contour map with 10 contours and with the  \verb|/FILL|  keyword set. \\ 
+    Define a range of colors where the largest contour values are the brightest.    \\ 
+    Use multiple hues, e.g. blue to red to yellow \\ 
+  The title of the plot should be “Solar Temperature” \\ 
+  Save this contour plot as a JPG file with the name  \verb|YourName_solarTemp.jpg| \\ 
+  \par \\ 
+  Turn in (\verb|/home/shared/astr2600/assignment4/YourName/|) \\ 
+  Your IDL script files:   \\ 
+  \textbf{YourName\_sinSinGrid.pro} \\ 
+  \textbf{YourName\_PlanckShaded.pro} \\ 
+  \textbf{YourName\_plot\_spectrum.pro}   (for  \emph{one}  of the plots) \\ 
+  \textbf{YourName\_solarTemp.pro} \\ 
+  All 4 of your jpg files \\ 
+  \textbf{YourName\_fullSpectrum.jpg} \\ 
+  \textbf{YourName\_doublePeak.jpg} \\ 
+  \textbf{YourName\_tallPeak.jpg} \\ 
+  \textbf{YourName\_solarTemp.jpg} \\ 
+ 
+ 
+ \end{spacing}
+ \end{document}
+ 

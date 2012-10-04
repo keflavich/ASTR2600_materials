@@ -1,0 +1,245 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Assignment 0:   Basic interactive IDL math}
+\newcommand{\hmwkDueDate}{September 4th, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+\section{\textbf{Exercise:} \emph{  Due by classtime \hmwkDueDate}}
+\par
+
+\noindent Do this in your home login directory in Unix.
+
+\noindent Run IDL and type each courier font line exactly as it appears below.  You do not have to type the “comment” consisting of the semi-colon and all text after it.  Pay attention to the output.  Each line illustrates some different behavior.
+
+\noindent The first thing you will do, of course, is open a terminal window and run IDL by typing
+
+\texttt{idl}
+
+at the Linux prompt.  Now you’re running IDL and you should see the IDL prompt.
+
+Before you start the exercises in the book, you should open an IDL journal file
+to record your work.  The name of that file needs to \emph{begin} with your
+name followed by an underscore.  This is just like putting your name on a
+homework or exam.  Don’t forget it!  The format of the name needs to be in
+lower case, first name then last.  The first letter of your last name needs to
+be capitalized.  Your name should be as it appears in the roll, e.g.
+MichaelSmith, not MikeSmith.  This will be the case for all files you turn in
+this semester.  Each assignment will specify the rest of the file name.  For
+this exercise, that should be ex0\_pro.  So I would open a journal file by
+typing this into IDL:
+
+\texttt{journal, "AdamGinsburg\_ex0.pro"}
+To simplify the description of the filenames and to remind you about including your name, the assignments will specify something like that by writing YourName where your name would go.  So exercises will tend to begin with something like this:
+
+{\tt
+\begin{tabbing}
+; Open a "journal file" that records everything you type. \\*
+; You will turn this in \\*
+journal, "YourName\_ex0.pro"    ; you will begin almost ALL exercises opening a journal \\
+\end{tabbing}
+}
+
+Now open your journal file and proceed with these exercises from the book:
+
+\begin{itemize}
+    \item Exercise 1.0 Basic arithmetic
+    \item Exercise 1.1 Basic use of variables
+    \item Exercise 1.2 Operator precedence
+    \item Exercise 1.3 String arithmetic: 
+    \item Exercise 1.4 Math functions
+    \item Exercise 1.5 Equations
+    \item Exercise 1.6: A good physics-based complicated equation, the Planck black-body curve
+    \item Exercise 1.7 Modifying a variable
+\end{itemize}
+
+Before each exercise, type a “comment” that labels the exercise.  This will appear in your journal file.
+To do this, the line must begin with a semi-colon, e.g.,
+
+\texttt{; Exercise 1.2}
+
+When you are done with the exercises close your journal file:
+
+\begin{tabbing}
+\texttt{;Close your journal file.  You will do this at the end of all exercises\\    }
+\texttt{journal                ; no parameters means “close the current journal file”}
+\end{tabbing}
+
+When you are done with IDL, you exit it with
+
+\texttt{exit}
+
+If for some reason you do not finish all the exercises in one sitting, you can close the journal file and then, later, open a new journal file with a different file name to continue.  You should do this at the end of an exercise section (i.e., complete the section) and then when you open a new journal file, use a file name that says what exercise it starts at, e.g., if you only finish 1.0 through 1.4 in the first sitting, close that journal file at the end of 1.4.  Then, when you get back to finishing the exercise, open a journal file named YourName\_ex0\_1.5.pro.   Notice that the exercise numbers are based on chapter number whereas the journal file name is based on assignment number.  So the ex0 file contains exercises numbered 1.0 through 1.7. 
+
+I’ll always explain the turn in process at the end of the assignment handout.
+
+
+\section{\textbf{What does it do?} }
+
+From the terminal window Linux prompt, run the \texttt{gedit} text editor on a file named \texttt{YourName\_wdid0.txt}.  To do this, at the Linux prompt, type the following:
+
+\texttt{gedit YourName\_wdid0.txt \&}
+
+(I’ll explain the “\texttt{\&}”, called an “ampersand”, later in the semester.)
+\texttt{gedit} is a typical text editor similar in principle to word processors
+you’ve used.  Don’t use a word processor like MS Word to do this.  You need to
+learn to use the text editor in Linux\footnote{You can use \texttt{vi} or
+\texttt{emacs} if you want.  I'll help you with \texttt{vi}, but not with
+\texttt{emacs}}.   This will open the new (or existing)
+file allowing you to edit it.  
+
+In this file, type your answers to the \emph{What does it do?} 1.0 through 1.7.  If there is no explicit question, then the implied question is “What does it do?”, e.g., if the last statement is a print statement, “What does it print?”
+
+When you are done, use the \texttt{gedit} menus to save the file and quit the editor.
+
+If you do not finish the \emph{What does it do?} in one sitting, you can save the file and quit.  Then, when you are ready to finish it, you can edit the same file (type the same command).  This will allow you to append the later answers.  You’ll never need to turn in \emph{What does it do?}’s in multiple pieces.
+
+
+\section{Turn in}
+copy into \texttt{/home/shared/astr2600/assignment0/YourName/}:
+\begin{tabbing}
+Journal file of the exercise, \texttt{YourName\_ex0.pro} \\
+\emph{What does it do?} text file: \texttt{YourName\_wdid0.txt}
+\end{tabbing}
+
+To do this, in Unix, type
+
+\begin{tabbing}
+\texttt{cp -p YourName\_ex0.pro \textasciitilde ginsbura/ASTR2600/students/assignment0/YourName/} \\
+\texttt{cp -p YourName\_wdid0.txt \textasciitilde ginsbura/ASTR2600/students/assignment0/YourName/}
+\end{tabbing}
+
+If you split the exercise amongst multiple files, then do the same copy line for each exercise file, i.e. be sure to turn in all your exercise files! 
+
+
+%\section{Graded Homework}
+
+% There is no Graded Homework for Assignment 0.
+% (This is why I let you have a week to do the exercise \& \emph{What does it do?}.)
+
+\end{spacing}
+\end{document}

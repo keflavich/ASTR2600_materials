@@ -1,0 +1,85 @@
+
+%%%
+%%% setup page geometry vertical
+%%%
+\setlength{\voffset}{-1.in}
+\setlength{\textheight}{9. in} 
+\setlength{\topskip}{0.in} 
+%%%
+%%% horizontal
+%%%
+\setlength{\textwidth}{6.5 in} 
+\setlength{\oddsidemargin}{0.in} 
+\setlength{\evensidemargin}{0.in} 
+%%%
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2ex} 
+
+% Change chapter name to 'Lecture'
+\renewcommand{\chaptername}%
+{Lecture}
+
+% Change bibliography name to ``references
+\renewcommand{\bibname}{References}
+
+% Change chapter head 
+\def\@makechapterhead#1{ \vspace*{5pt} {\parindent 0pt \raggedright
+ \ifnum \c@secnumdepth >\m@ne \LARGE \bf \hfill \@chapapp{} \thechapter
+ \vskip 5 pt\hrule \par
+ \vskip 20pt \fi \LARGE \bf\begin{center} #1\end{center}\par
+ \nobreak \vskip 20pt } }
+\def\@makeschapterhead#1{ \vspace*{5pt} {\parindent 0pt \raggedright
+ \Huge \bf #1\par
+ \nobreak \vskip 20pt } }
+
+% Remove the colon from the figure caption
+\long\def\@makecaption#1#2{
+\vskip 10pt
+\setbox\@tempboxa\hbox{{\footnotesize\bf #1} {\footnotesize #2}}
+\ifdim \wd\@tempboxa >\hsize \unhbox\@tempboxa\par \else \hbox
+to\hsize{\hfil\box\@tempboxa\hfil}
+\fi}
+% Cause the table caption not to print anything by default
+%\def\fnum@table{}
+\def\fnum@table{\bf Table~\thetable\rm}
+% Bold face the Figure captions
+\def\fnum@figure{\bf Figure \thefigure\rm}
+
+% We need to switch back from \flushbottom if using twoside style
+\raggedbottom
+
+\newcounter{saveeqn}%
+\newcommand{\alpheqn}{\setcounter{saveeqn}{\value{equation}}%
+\stepcounter{saveeqn}\setcounter{equation}{0}%
+\renewcommand{\theequation}
+	{\mbox{\arabic{saveeqn}-\alph{equation}}}}%
+\newcommand{\reseteqn}{\setcounter{equation}{\value{saveeqn}}%
+\renewcommand{\theequation}{\arabic{equation}}}%
+
+% Preface definitions.
+\def\beforepreface{
+
+	\pagenumbering{roman}
+% Change this to \pagestyle{plain} if you want numbers at the bottom
+	\pagestyle{plain}
+	\markboth{}{}
+	\titlep
+%	\ifcopyright\copyrightpage\fi
+	\pagestyle{headings}
+	\markboth{}{}
+	}
+
+\def\prefacesection#1{
+%\chapter*{#1}
+\clearpage \thispagestyle{plain} \global\@topnum\z@
+\@afterindentfalse
+%\vspace*{50pt}
+\vspace*{20pt}
+{ \parindent 0pt \raggedright
+\centering \Huge \bf #1\par
+\nobreak \vskip 40pt }
+\@afterheading
+	\addcontentsline{toc}{chapter}{#1}}
+
+%
